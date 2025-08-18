@@ -1,0 +1,118 @@
+[gd_scene load_steps=3 format=3 uid="uid://df0mkdyv4gagm"]
+
+[ext_resource type="Script" uid="uid://cuh6djtd7kde3" path="res://Scripts/menuController.gd" id="1_jf31c"]
+[ext_resource type="Theme" uid="uid://e6s1gi814xp0" path="res://Theme/menu_theme.tres" id="1_l44du"]
+
+[node name="MainMenuScene" type="Node2D"]
+script = ExtResource("1_jf31c")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="marginContainerMenu" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_l44du")
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="MainMenuContainer" type="VBoxContainer" parent="CanvasLayer/marginContainerMenu"]
+layout_mode = 2
+theme = ExtResource("1_l44du")
+
+[node name="container" type="CenterContainer" parent="CanvasLayer/marginContainerMenu/MainMenuContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_l44du")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/marginContainerMenu/MainMenuContainer/container"]
+layout_mode = 2
+
+[node name="lGameName" type="Label" parent="CanvasLayer/marginContainerMenu/MainMenuContainer/container/VBoxContainer"]
+layout_mode = 2
+text = "Asteroid Survivor"
+
+[node name="bPlay" type="Button" parent="CanvasLayer/marginContainerMenu/MainMenuContainer/container/VBoxContainer"]
+layout_mode = 2
+text = "Play"
+
+[node name="bHowTo" type="Button" parent="CanvasLayer/marginContainerMenu/MainMenuContainer/container/VBoxContainer"]
+layout_mode = 2
+text = "How to play"
+
+[node name="bOptions" type="Button" parent="CanvasLayer/marginContainerMenu/MainMenuContainer/container/VBoxContainer"]
+layout_mode = 2
+text = "Options"
+
+[node name="bQuit" type="Button" parent="CanvasLayer/marginContainerMenu/MainMenuContainer/container/VBoxContainer"]
+layout_mode = 2
+text = "Quit"
+
+[node name="lMadeBy" type="Label" parent="CanvasLayer/marginContainerMenu/MainMenuContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Made by GigaHerzz"
+horizontal_alignment = 1
+
+[node name="containerHowTo" type="CenterContainer" parent="CanvasLayer/marginContainerMenu"]
+visible = false
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/marginContainerMenu/containerHowTo"]
+layout_mode = 2
+
+[node name="lOptions" type="Label" parent="CanvasLayer/marginContainerMenu/containerHowTo/VBoxContainer"]
+layout_mode = 2
+text = "How To Play"
+
+[node name="bBack" type="Button" parent="CanvasLayer/marginContainerMenu/containerHowTo/VBoxContainer"]
+layout_mode = 2
+text = "Back"
+
+[node name="containerOptions" type="CenterContainer" parent="CanvasLayer/marginContainerMenu"]
+visible = false
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/marginContainerMenu/containerOptions"]
+layout_mode = 2
+
+[node name="lOptions" type="Label" parent="CanvasLayer/marginContainerMenu/containerOptions/VBoxContainer"]
+layout_mode = 2
+text = "Options"
+
+[node name="bBack" type="Button" parent="CanvasLayer/marginContainerMenu/containerOptions/VBoxContainer"]
+layout_mode = 2
+text = "Back"
+
+[node name="containerQuit" type="CenterContainer" parent="CanvasLayer/marginContainerMenu"]
+visible = false
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/marginContainerMenu/containerQuit"]
+layout_mode = 2
+
+[node name="lSure" type="Label" parent="CanvasLayer/marginContainerMenu/containerQuit/VBoxContainer"]
+layout_mode = 2
+text = "Are you sure you want to quit?"
+
+[node name="bYes" type="Button" parent="CanvasLayer/marginContainerMenu/containerQuit/VBoxContainer"]
+layout_mode = 2
+text = "Yes"
+
+[node name="bNo" type="Button" parent="CanvasLayer/marginContainerMenu/containerQuit/VBoxContainer"]
+layout_mode = 2
+text = "No"
+
+[connection signal="button_up" from="CanvasLayer/marginContainerMenu/MainMenuContainer/container/VBoxContainer/bPlay" to="." method="_on_b_play_button_up"]
+[connection signal="button_up" from="CanvasLayer/marginContainerMenu/MainMenuContainer/container/VBoxContainer/bHowTo" to="." method="_on_b_how_to_button_up"]
+[connection signal="button_up" from="CanvasLayer/marginContainerMenu/MainMenuContainer/container/VBoxContainer/bOptions" to="." method="_on_b_options_button_up"]
+[connection signal="button_up" from="CanvasLayer/marginContainerMenu/MainMenuContainer/container/VBoxContainer/bQuit" to="." method="_on_b_quit_button_up"]
+[connection signal="button_up" from="CanvasLayer/marginContainerMenu/containerHowTo/VBoxContainer/bBack" to="." method="_on_b_back_button_up"]
+[connection signal="button_up" from="CanvasLayer/marginContainerMenu/containerOptions/VBoxContainer/bBack" to="." method="_on_b_back_button_up"]
+[connection signal="button_up" from="CanvasLayer/marginContainerMenu/containerQuit/VBoxContainer/bYes" to="." method="_on_b_yes_button_up"]
+[connection signal="button_up" from="CanvasLayer/marginContainerMenu/containerQuit/VBoxContainer/bNo" to="." method="_on_b_no_button_up"]
