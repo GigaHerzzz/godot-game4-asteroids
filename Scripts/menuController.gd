@@ -6,6 +6,9 @@ extends Node2D
 @onready var c_quit: CenterContainer = $CanvasLayer/marginContainerMenu/containerQuit
 
 
+func _ready() -> void:
+	Globals.load_game()
+
 func _on_b_play_button_up() -> void:
 	get_tree().change_scene_to_file("res://Scenes/game_loop.tscn")
 
