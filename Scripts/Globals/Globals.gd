@@ -1,8 +1,10 @@
 extends Node
 var high_score = 0
 
-enum State {PREPARE, PLAYING, PAUSED, GAME_OVER}
+enum State {MENU, PREPARE, PLAYING, PAUSED, GAME_OVER}
 var current_state = State.PREPARE
+
+var DEBUG_MODE = true
 
 #Saves the game data to device
 func save_game():

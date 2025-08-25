@@ -9,8 +9,8 @@ extends Node2D
 
 @onready var timer_ready := $TimerReady
 
-@export var score = 0
-@export var ready_time = 3
+@export var score: int = 0
+@export var ready_time: int = 3
 
 signal play_game
 

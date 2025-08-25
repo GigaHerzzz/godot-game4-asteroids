@@ -115,8 +115,6 @@ shape = SubResource("CircleShape2D_wb67d")
 [node name="Sprite2D" type="Sprite2D" parent="Player"]
 texture = ExtResource("3_u7gwu")
 
-[node name="TimerShootColdown" type="Timer" parent="Player"]
-
 [node name="ShootPoint" type="Node2D" parent="Player"]
 position = Vector2(0, 53)
 
@@ -162,9 +160,7 @@ collision_layer = 8388608
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DestroyerWall4"]
-position = Vector2(158.929, 0.000698025)
 shape = SubResource("RectangleShape2D_wb67d")
 
 [connection signal="play_game" from="." to="Player" method="_on_game_loop_play_game"]
 [connection signal="timeout" from="TimerReady" to="." method="_on_timer_ready_timeout"]
-[connection signal="timeout" from="Player/TimerShootColdown" to="Player" method="_on_timer_shoot_coldown_timeout"]

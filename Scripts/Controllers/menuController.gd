@@ -8,6 +8,9 @@ extends Node2D
 
 func _ready() -> void:
 	Globals.load_game()
+	#Skip to the game, maybe make a debug window and use this
+	if(Globals.current_state == Globals.State.PREPARE):
+		get_tree().change_scene_to_file("res://Scenes/game_loop.tscn")
 
 func _on_b_play_button_up() -> void:
 	get_tree().change_scene_to_file("res://Scenes/game_loop.tscn")

@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://cv61gse5n84l0"]
+[gd_scene load_steps=9 format=3 uid="uid://cv61gse5n84l0"]
 
 [ext_resource type="Script" uid="uid://dtpa601swsn3h" path="res://Scripts/Controllers/GameController.gd" id="1_u7gwu"]
 [ext_resource type="Theme" uid="uid://b5pgyyy6mq1f" path="res://Theme/game_theme.tres" id="1_yw6yy"]
 [ext_resource type="Script" uid="uid://cxquyy50cg4pw" path="res://Scripts/Controllers/PlayerController.gd" id="2_o1o31"]
 [ext_resource type="Texture2D" uid="uid://dguwom6hvtxoj" path="res://icon.svg" id="3_u7gwu"]
 [ext_resource type="PackedScene" uid="uid://0dceyqxji7s4" path="res://Scenes/entities/projectile.tscn" id="4_wb67d"]
+[ext_resource type="PackedScene" uid="uid://djt6d7okgh4t" path="res://Scenes/asteroid_obj.tscn" id="6_a6xnu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wb67d"]
 
@@ -164,6 +165,9 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DestroyerWall4"]
 position = Vector2(158.929, 0.000698025)
 shape = SubResource("RectangleShape2D_wb67d")
+
+[node name="AsteroidObj" parent="." instance=ExtResource("6_a6xnu")]
+position = Vector2(484, 0)
 
 [connection signal="play_game" from="." to="Player" method="_on_game_loop_play_game"]
 [connection signal="timeout" from="TimerReady" to="." method="_on_timer_ready_timeout"]
