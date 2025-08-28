@@ -12,8 +12,6 @@ extends Node2D
 @export var score: int = 0
 @export var ready_time: int = 3
 
-
-
 signal play_game
 
 func prepare_game():
@@ -34,3 +32,8 @@ func update_score_ui(update_hi_score: bool):
 func _on_timer_ready_timeout() -> void:
 	Globals.current_state = Globals.State.PLAYING
 	ready_container.visible = false
+
+
+func add_points() -> void:
+	score += 10
+	update_score_ui(false)

@@ -14,6 +14,8 @@ enum Sizes{SMALL, MEDIUM, BIG}
 @export var min_rot_speed: float = 0
 @export var max_rot_speed: float = 1
 
+signal add_to_score
+
 func _ready() -> void:
 	speed = randi_range(min_speed, max_speed)
 	var rotation_speed_dir = randf_range(min_rot_dir, max_rot_dir)
@@ -28,6 +30,7 @@ func _process(delta: float) -> void:
 
 func _on_area_entered(area:Area2D) -> void:
 	if(area.is_in_group("bullet")):
+		add_to_score.emit()
 		fracture()
 		area.queue_free()
 		queue_free()
@@ -41,6 +44,7 @@ func fracture():
 			for i in range(2):
 				var instance: Area2D = Globals.get_asteroid(1).instantiate()
 				get_tree().root.add_child(instance)
+				instance.add_to_score.connect($"/root/GameLoop".add_points)
 				instance.global_position = global_position
 				instance.rotate(randi_range(0,360))
 				print("Added smaller asteroid at %s" % instance.global_position)
@@ -48,6 +52,7 @@ func fracture():
 			for i in range(3):
 				var instance: Area2D = Globals.get_asteroid(0).instantiate()
 				get_tree().root.add_child(instance)
+				instance.add_to_score.connect($"/root/GameLoop".add_points)
 				instance.position = position
 				instance.rotate(randi_range(0,360))
 		
