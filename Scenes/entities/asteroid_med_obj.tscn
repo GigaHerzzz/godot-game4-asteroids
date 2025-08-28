@@ -6,15 +6,18 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_ed4u3"]
 radius = 60.075
 
-[node name="Asteroid_small_obj" type="Area2D"]
+[node name="Asteroid_med_obj" type="Area2D"]
 collision_layer = 4
-collision_mask = 3
+collision_mask = 8388611
 script = ExtResource("1_mryu5")
+size = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.7, 0.7)
 texture = ExtResource("2_w11aq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.7, 0.7)
 shape = SubResource("CircleShape2D_ed4u3")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

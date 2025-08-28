@@ -1,10 +1,20 @@
 extends Node
-var high_score = 0
+var high_score: int = 0
 
 enum State {MENU, PREPARE, PLAYING, PAUSED, GAME_OVER}
-var current_state = State.PREPARE
+var current_state: int = State.PREPARE
 
-var DEBUG_MODE = true
+var DEBUG_MODE: bool = true 
+
+var asteroid_small: PackedScene = preload("res://Scenes/entities/asteroid_small_obj.tscn")
+var asteroid_medium: PackedScene = preload("res://Scenes/entities/asteroid_med_obj.tscn")
+var asteroid_large: PackedScene = preload("res://Scenes/entities/asteroid_big_obj.tscn")
+
+var asteroids: Array[Variant] = [asteroid_small, asteroid_medium, asteroid_large]
+
+#Use these scenes to instantiate new asteroids
+func get_asteroid(loc: int) -> Variant:
+	return asteroids[loc]
 
 #Saves the game data to device
 func save_game():

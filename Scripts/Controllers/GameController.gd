@@ -12,6 +12,8 @@ extends Node2D
 @export var score: int = 0
 @export var ready_time: int = 3
 
+
+
 signal play_game
 
 func prepare_game():
