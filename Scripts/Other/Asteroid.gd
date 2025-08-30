@@ -15,6 +15,7 @@ enum Sizes{SMALL, MEDIUM, BIG}
 @export var max_rot_speed: float = 1
 
 signal add_to_score
+signal player_hit
 
 func _ready() -> void:
 	speed = randi_range(min_speed, max_speed)
@@ -35,7 +36,7 @@ func _on_area_entered(area:Area2D) -> void:
 		area.queue_free()
 		queue_free()
 	if (area.is_in_group("destroy")):
-		print("Asteroid left area")
+		#print("Asteroid left area")
 		queue_free()
 		
 func fracture():
@@ -43,16 +44,23 @@ func fracture():
 		Sizes.BIG:
 			for i in range(2):
 				var instance: Area2D = Globals.get_asteroid(1).instantiate()
-				get_tree().root.add_child(instance)
+				get_tree().root.get_child(1).call_deferred("add_child", instance)
 				instance.add_to_score.connect($"/root/GameLoop".add_points)
+				instance.player_hit.connect($"/root/GameLoop".player_hit)
 				instance.global_position = global_position
 				instance.rotate(randi_range(0,360))
-				print("Added smaller asteroid at %s" % instance.global_position)
+				#print("Added smaller asteroid at %s" % instance.global_position)
 		Sizes.MEDIUM:
 			for i in range(3):
 				var instance: Area2D = Globals.get_asteroid(0).instantiate()
-				get_tree().root.add_child(instance)
+				get_tree().root.get_child(1).call_deferred("add_child", instance)
 				instance.add_to_score.connect($"/root/GameLoop".add_points)
+				instance.player_hit.connect($"/root/GameLoop".player_hit)
 				instance.position = position
 				instance.rotate(randi_range(0,360))
 		
+
+
+func _on_body_entered(body:Node2D) -> void:
+	if body.name == "Player":
+		player_hit.emit()

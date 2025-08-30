@@ -4,12 +4,15 @@ extends CharacterBody2D
 @export var drag: int = 10
 @export var max_acceleration: int = 400
 @export var current_acceleration: float = 0
+@export var respawn_position: Vector2 = Vector2(0,0)
+@export var respawn_time: int = 3
+@export var imunity_time: int = 5
 
 @export var rotation_acc: int = 150
 
 @export var Bullet : PackedScene
 
-@export var can_move := false
+@export var can_move := true
 
 @export var shoot_cooldown := 0.2
 @export var can_shoot = true
@@ -21,7 +24,7 @@ func _process(delta: float) -> void:
 				shoot()
 
 func _physics_process(delta: float) -> void:
-	if(Globals.current_state == Globals.State.PLAYING):
+	if(Globals.current_state == Globals.State.PLAYING and can_move):
 		if(Input.is_action_pressed("forward_thrust")):
 			velocity += Vector2(0,acceleration).rotated(rotation)
 			velocity = velocity.limit_length(max_acceleration)
@@ -40,7 +43,7 @@ func _physics_process(delta: float) -> void:
 
 func shoot():
 	var b = Bullet.instantiate()
-	get_tree().root.add_child(b)
+	get_tree().root.get_child(1).add_child(b)
 	b.transform = $ShootPoint.global_transform
 	can_shoot = false
 	$TimerShootColdown.start(shoot_cooldown)
@@ -65,4 +68,27 @@ func _on_game_loop_play_game() -> void:
 
 
 func _on_timer_shoot_coldown_timeout() -> void:
+	can_shoot = true
+
+
+#Player got hit, should dissapear and respawn in the middle after a vouple of seconds
+#FINISH THIS AND MAKE IT WORK
+func _on_game_loop_player_respawn() -> void:
+	$CollisionShape2D.set_deferred("disabled", true)
+	can_shoot = false
+	can_move = false
+	velocity = Vector2.ZERO
+	visible = false
+	global_position = respawn_position
+	$TimerRespawn.start(respawn_time)
+	
+
+func _on_timer_respawn_timeout() -> void:
+	visible = true
+	can_move = true
+	$TimerImunity.start(imunity_time)
+
+
+func _on_timer_imunity_timeout() -> void:
+	$CollisionShape2D.set_deferred("disabled", false)
 	can_shoot = true

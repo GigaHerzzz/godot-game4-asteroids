@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://dchfmt45die7c" path="res://Scripts/Spawner/asteroid_spawner.gd" id="7_ed4u3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wb67d"]
+radius = 64.0312
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wb67d"]
 size = Vector2(58, 976.667)
@@ -61,6 +62,7 @@ size_flags_horizontal = 3
 text = "High Score:"
 
 [node name="contDebug" type="MarginContainer" parent="CanvasLayer"]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -104,19 +106,160 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 60
 text = "READY"
 
+[node name="contGameOver" type="CenterContainer" parent="CanvasLayer"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 8.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_yw6yy")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/contGameOver"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/contGameOver/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 80
+text = "GAME OVER"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="CanvasLayer/contGameOver/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 60
+text = "NEW HIGH SCORE"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/contGameOver/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label2" type="Label" parent="CanvasLayer/contGameOver/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 60
+text = "Your score:"
+
+[node name="Label3" type="Label" parent="CanvasLayer/contGameOver/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 60
+text = "High Score:"
+
+[node name="contPaused" type="MarginContainer" parent="CanvasLayer"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 8.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_yw6yy")
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/contPaused"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/contPaused/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 80
+text = "PAUSED"
+
+[node name="BResume" type="Button" parent="CanvasLayer/contPaused/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+text = "Resume
+"
+
+[node name="BRestart" type="Button" parent="CanvasLayer/contPaused/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+text = "Restart
+"
+
+[node name="BOptions" type="Button" parent="CanvasLayer/contPaused/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+text = "Options"
+
+[node name="BQuit" type="Button" parent="CanvasLayer/contPaused/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+text = "Quit
+"
+
+[node name="contReturn" type="MarginContainer" parent="CanvasLayer"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 8.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_yw6yy")
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/contReturn"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/contReturn/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 80
+text = "Are you sure you want to quit?"
+
+[node name="BConfirmQuit" type="Button" parent="CanvasLayer/contReturn/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+text = "Confirm"
+
+[node name="BBackToPause" type="Button" parent="CanvasLayer/contReturn/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+text = "Back
+"
+
 [node name="Player" type="CharacterBody2D" parent="."]
-position = Vector2(932, 444)
+position = Vector2(980, 517)
+collision_mask = 4
 motion_mode = 1
 script = ExtResource("2_o1o31")
+respawn_position = Vector2(980, 517)
 Bullet = ExtResource("4_wb67d")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-shape = SubResource("CircleShape2D_wb67d")
 
 [node name="Sprite2D" type="Sprite2D" parent="Player"]
 texture = ExtResource("3_u7gwu")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("CircleShape2D_wb67d")
+
 [node name="TimerShootColdown" type="Timer" parent="Player"]
+one_shot = true
+
+[node name="TimerRespawn" type="Timer" parent="Player"]
+one_shot = true
+
+[node name="TimerImunity" type="Timer" parent="Player"]
+one_shot = true
 
 [node name="ShootPoint" type="Node2D" parent="Player"]
 position = Vector2(0, 53)
@@ -134,7 +277,6 @@ collision_layer = 8388608
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DestroyerWall"]
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_wb67d")
 
 [node name="DestroyerWall2" type="Area2D" parent="." groups=["destroy", "destroyer"]]
@@ -197,8 +339,16 @@ spawn_time_base = 3
 [node name="SpawnTimer" type="Timer" parent="AsteroidSpawner4"]
 
 [connection signal="play_game" from="." to="Player" method="_on_game_loop_play_game"]
+[connection signal="player_respawn" from="." to="Player" method="_on_game_loop_player_respawn"]
 [connection signal="timeout" from="TimerReady" to="." method="_on_timer_ready_timeout"]
+[connection signal="button_up" from="CanvasLayer/contPaused/VBoxContainer/BResume" to="." method="_on_b_resume_button_up"]
+[connection signal="button_up" from="CanvasLayer/contPaused/VBoxContainer/BRestart" to="." method="_on_b_restart_button_up"]
+[connection signal="pressed" from="CanvasLayer/contPaused/VBoxContainer/BQuit" to="." method="_on_b_quit_pressed"]
+[connection signal="button_up" from="CanvasLayer/contReturn/VBoxContainer/BConfirmQuit" to="." method="_on_b_confirm_quit_button_up"]
+[connection signal="button_up" from="CanvasLayer/contReturn/VBoxContainer/BBackToPause" to="." method="_on_b_back_to_pause_button_up"]
 [connection signal="timeout" from="Player/TimerShootColdown" to="Player" method="_on_timer_shoot_coldown_timeout"]
+[connection signal="timeout" from="Player/TimerRespawn" to="Player" method="_on_timer_respawn_timeout"]
+[connection signal="timeout" from="Player/TimerImunity" to="Player" method="_on_timer_imunity_timeout"]
 [connection signal="timeout" from="AsteroidSpawner/SpawnTimer" to="AsteroidSpawner" method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="AsteroidSpawner2/SpawnTimer" to="AsteroidSpawner2" method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="AsteroidSpawner3/SpawnTimer" to="AsteroidSpawner3" method="_on_spawn_timer_timeout"]
