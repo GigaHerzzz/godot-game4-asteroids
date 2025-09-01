@@ -1,5 +1,9 @@
 extends CharacterBody2D
 
+class_name PlayerController
+
+enum shooting_mode {Single, Dobule, Triple}
+
 @export var acceleration: int = 20
 @export var drag: int = 10
 @export var max_acceleration: int = 400
@@ -15,13 +19,18 @@ extends CharacterBody2D
 @export var can_move := true
 
 @export var shoot_cooldown := 0.2
-@export var can_shoot = true
+@export var is_shielded: bool = false
+@export var can_shoot: bool = true
+@export var gun: int = shooting_mode.Single
+
+@export var shield_time: int = 30
+
+signal add_life
 
 func _process(delta: float) -> void:
 	if(Globals.current_state == Globals.State.PLAYING):
-		if(Input.is_action_pressed("fire")):
-			if(can_shoot):
-				shoot()
+		if(Input.is_action_pressed("fire") and can_shoot):
+			shoot()
 
 func _physics_process(delta: float) -> void:
 	if(Globals.current_state == Globals.State.PLAYING and can_move):
@@ -42,11 +51,35 @@ func _physics_process(delta: float) -> void:
 		check_for_wrapping()
 
 func shoot():
-	var b = Bullet.instantiate()
-	get_tree().root.get_child(1).add_child(b)
-	b.transform = $ShootPoint.global_transform
-	can_shoot = false
-	$TimerShootColdown.start(shoot_cooldown)
+	match gun:
+		shooting_mode.Single:
+			var b = Bullet.instantiate()
+			get_tree().root.get_child(1).add_child(b)
+			b.transform = $ShootPoint.global_transform
+			can_shoot = false
+			$TimerShootColdown.start(shoot_cooldown)
+		shooting_mode.Dobule:
+			var b1 = Bullet.instantiate()
+			var b2 = Bullet.instantiate()
+			get_tree().root.get_child(1).add_child(b1)
+			get_tree().root.get_child(1).add_child(b2)
+			b1.transform = $ShootPoint2.global_transform
+			b2.transform = $ShootPoint3.global_transform
+			can_shoot = false
+			$TimerShootColdown.start(shoot_cooldown)
+		shooting_mode.Triple:
+			var b1 = Bullet.instantiate()
+			var b2 = Bullet.instantiate()
+			var b3 = Bullet.instantiate()
+			get_tree().root.get_child(1).add_child(b1)
+			get_tree().root.get_child(1).add_child(b2)
+			get_tree().root.get_child(1).add_child(b3)
+			b1.transform = $ShootPoint.global_transform
+			b2.transform = $ShootPoint2.global_transform
+			b3.transform = $ShootPoint3.global_transform
+			can_shoot = false
+			$TimerShootColdown.start(shoot_cooldown)
+			
 
 func check_for_wrapping():
 	var window_size = DisplayServer.window_get_size()
@@ -72,11 +105,11 @@ func _on_timer_shoot_coldown_timeout() -> void:
 
 
 #Player got hit, should dissapear and respawn in the middle after a vouple of seconds
-#FINISH THIS AND MAKE IT WORK
 func _on_game_loop_player_respawn() -> void:
 	$CollisionShape2D.set_deferred("disabled", true)
 	can_shoot = false
 	can_move = false
+	$TimerShootColdown.stop()
 	velocity = Vector2.ZERO
 	visible = false
 	global_position = respawn_position
@@ -85,6 +118,7 @@ func _on_game_loop_player_respawn() -> void:
 
 func _on_timer_respawn_timeout() -> void:
 	visible = true
+	$AnimationPlayer.play("respawn")
 	can_move = true
 	$TimerImunity.start(imunity_time)
 
@@ -92,3 +126,36 @@ func _on_timer_respawn_timeout() -> void:
 func _on_timer_imunity_timeout() -> void:
 	$CollisionShape2D.set_deferred("disabled", false)
 	can_shoot = true
+
+
+func _on_game_loop_player_died() -> void:
+	$CollisionShape2D.set_deferred("disabled", true)
+	can_shoot = false
+	can_move = false
+	velocity = Vector2.ZERO
+	visible = false
+	global_position = respawn_position
+
+
+func add_power_up(type: int):
+	match type:
+		PowerUp.type.Shield:
+			is_shielded = true
+			$SpriteShield.visible = true
+			$TimerShield.start(shield_time)
+		PowerUp.type.Double_shot:
+			if(gun <= shooting_mode.Dobule):
+				gun = shooting_mode.Dobule
+		PowerUp.type.Triple_shot:
+			gun = shooting_mode.Triple
+		PowerUp.type.Extra_life:
+			add_life.emit()
+			
+
+func disable_shield():
+	is_shielded = false
+	$SpriteShield.visible = false
+	$TimerShield.stop()
+	
+func _on_timer_shield_timeout() -> void:
+	disable_shield()

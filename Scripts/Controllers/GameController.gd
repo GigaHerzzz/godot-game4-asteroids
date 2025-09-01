@@ -11,16 +11,21 @@ extends Node2D
 @onready var high_score_label := $CanvasLayer/contGameOverlay/VBoxContainer/HBoxContainer2/lHiScore
 @onready var lives_label := $CanvasLayer/contGameOverlay/VBoxContainer/HBoxContainer/lLives
 
+@onready var l_new_hi_score := $CanvasLayer/contGameOver/VBoxContainer/LabelNewHiScore
+@onready var l_game_over_score := $CanvasLayer/contGameOver/VBoxContainer/HBoxContainer/LabelPlayerScore
+@onready var l_game_over_hi_score := $CanvasLayer/contGameOver/VBoxContainer/HBoxContainer/LabelHiScore
+
 @onready var timer_ready := $TimerReady
 
 @export var score: int = 0
 @export var ready_time: int = 3
 
 @export var player_lives: int = 3
-var PLAYER_STARTING_LIVES: int = 3
+static var PLAYER_STARTING_LIVES: int = 3
 
 signal play_game
 signal player_respawn
+signal player_died
 
 func prepare_game():
 	Globals.current_state = Globals.State.PREPARE
@@ -48,21 +53,39 @@ func _on_timer_ready_timeout() -> void:
 	ready_container.visible = false
 
 func player_dead():
+	Globals.current_state = Globals.State.GAME_OVER
+	set_game_over_score_display()
 	game_overlay_contaienr.visible = false
 	game_over_container.visible = true
+	player_died.emit()
+
+func set_game_over_score_display():
+	l_game_over_score.text = "Score: %d" % score
+	if(score > Globals.high_score):
+		Globals.high_score = score
+		Globals.save_game()
+		l_new_hi_score.visible = true
+		update_score_ui(true)
+	else:
+		l_new_hi_score.visible = false
+		update_score_ui(false)
+	l_game_over_hi_score.text = "High Score: %d" % Globals.high_score
 
 func add_points() -> void:
 	score += 10
 	update_score_ui(false)
 	
 func player_hit() -> void:
-	player_lives -= 1
-	print("Player hit")
-	if(player_lives == 0):
-		player_dead()
+	if(!$Player.is_shielded):
+		player_lives -= 1
+		print("Player hit")
+		if(player_lives == 0):
+			player_dead()
+		else:
+			player_respawn.emit()
+			update_lives_ui()
 	else:
-		player_respawn.emit()
-		update_lives_ui()
+		$Player.disable_shield()
 	
 # UI CODE
 func toggle_paused():
@@ -102,3 +125,16 @@ func _on_b_back_to_pause_button_up() -> void:
 
 func _on_b_restart_button_up() -> void:
 	get_tree().reload_current_scene()
+
+
+func _on_b_restart_game_button_up() -> void:
+	get_tree().reload_current_scene()
+
+
+func _on_b_quit_to_menu_button_up() -> void:
+	get_tree().change_scene_to_file("res://Scenes/main_menu_scene.tscn")
+
+
+func _on_player_add_life() -> void:
+	player_lives += 1
+	update_lives_ui()

@@ -1,14 +1,56 @@
-[gd_scene load_steps=9 format=3 uid="uid://cv61gse5n84l0"]
+[gd_scene load_steps=14 format=3 uid="uid://cv61gse5n84l0"]
 
 [ext_resource type="Script" uid="uid://dtpa601swsn3h" path="res://Scripts/Controllers/GameController.gd" id="1_u7gwu"]
 [ext_resource type="Theme" uid="uid://b5pgyyy6mq1f" path="res://Theme/game_theme.tres" id="1_yw6yy"]
 [ext_resource type="Script" uid="uid://cxquyy50cg4pw" path="res://Scripts/Controllers/PlayerController.gd" id="2_o1o31"]
 [ext_resource type="Texture2D" uid="uid://dguwom6hvtxoj" path="res://icon.svg" id="3_u7gwu"]
 [ext_resource type="PackedScene" uid="uid://0dceyqxji7s4" path="res://Scenes/entities/projectile.tscn" id="4_wb67d"]
+[ext_resource type="PackedScene" uid="uid://dwa0il0fhyaa5" path="res://Scenes/entities/power_up.tscn" id="7_af5am"]
 [ext_resource type="Script" uid="uid://dchfmt45die7c" path="res://Scripts/Spawner/asteroid_spawner.gd" id="7_ed4u3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wb67d"]
 radius = 64.0312
+
+[sub_resource type="Animation" id="Animation_af5am"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_a6xnu"]
+resource_name = "default"
+
+[sub_resource type="Animation" id="Animation_ed4u3"]
+resource_name = "respawn"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2, 2.51, 3, 3.5, 4, 4.51, 5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tf7tj"]
+_data = {
+&"RESET": SubResource("Animation_af5am"),
+&"default": SubResource("Animation_a6xnu"),
+&"respawn": SubResource("Animation_ed4u3")
+}
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wb67d"]
 size = Vector2(58, 976.667)
@@ -128,7 +170,7 @@ theme_override_font_sizes/font_size = 80
 text = "GAME OVER"
 horizontal_alignment = 1
 
-[node name="Label2" type="Label" parent="CanvasLayer/contGameOver/VBoxContainer"]
+[node name="LabelNewHiScore" type="Label" parent="CanvasLayer/contGameOver/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 60
 text = "NEW HIGH SCORE"
@@ -138,15 +180,27 @@ horizontal_alignment = 1
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label2" type="Label" parent="CanvasLayer/contGameOver/VBoxContainer/HBoxContainer"]
+[node name="LabelPlayerScore" type="Label" parent="CanvasLayer/contGameOver/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 60
 text = "Your score:"
 
-[node name="Label3" type="Label" parent="CanvasLayer/contGameOver/VBoxContainer/HBoxContainer"]
+[node name="LabelHiScore" type="Label" parent="CanvasLayer/contGameOver/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 60
 text = "High Score:"
+
+[node name="BRestartGame" type="Button" parent="CanvasLayer/contGameOver/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Play again"
+
+[node name="BQuitToMenu" type="Button" parent="CanvasLayer/contGameOver/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Quit"
 
 [node name="contPaused" type="MarginContainer" parent="CanvasLayer"]
 visible = false
@@ -270,6 +324,21 @@ position = Vector2(-30, 53)
 [node name="ShootPoint3" type="Node2D" parent="Player"]
 position = Vector2(30, 53)
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Player"]
+libraries = {
+&"": SubResource("AnimationLibrary_tf7tj")
+}
+
+[node name="SpriteShield" type="Sprite2D" parent="Player"]
+visible = false
+self_modulate = Color(0.0235294, 1, 1, 0.470588)
+rotation = 0.63879
+scale = Vector2(1.25, 1.25)
+texture = ExtResource("3_u7gwu")
+
+[node name="TimerShield" type="Timer" parent="Player"]
+one_shot = true
+
 [node name="DestroyerWall" type="Area2D" parent="." groups=["destroy", "destroyer"]]
 position = Vector2(-412, 535)
 scale = Vector2(2.24, 1.8)
@@ -338,17 +407,37 @@ spawn_time_base = 3
 
 [node name="SpawnTimer" type="Timer" parent="AsteroidSpawner4"]
 
+[node name="PowerUp" parent="." instance=ExtResource("7_af5am")]
+position = Vector2(492, 520)
+
+[node name="PowerUp2" parent="." instance=ExtResource("7_af5am")]
+position = Vector2(1556, 465)
+powerup_type = 1
+
+[node name="PowerUp3" parent="." instance=ExtResource("7_af5am")]
+position = Vector2(1295, 868)
+powerup_type = 2
+
+[node name="PowerUp4" parent="." instance=ExtResource("7_af5am")]
+position = Vector2(735, 868)
+powerup_type = 3
+
 [connection signal="play_game" from="." to="Player" method="_on_game_loop_play_game"]
+[connection signal="player_died" from="." to="Player" method="_on_game_loop_player_died"]
 [connection signal="player_respawn" from="." to="Player" method="_on_game_loop_player_respawn"]
 [connection signal="timeout" from="TimerReady" to="." method="_on_timer_ready_timeout"]
+[connection signal="button_up" from="CanvasLayer/contGameOver/VBoxContainer/BRestartGame" to="." method="_on_b_restart_game_button_up"]
+[connection signal="button_up" from="CanvasLayer/contGameOver/VBoxContainer/BQuitToMenu" to="." method="_on_b_quit_to_menu_button_up"]
 [connection signal="button_up" from="CanvasLayer/contPaused/VBoxContainer/BResume" to="." method="_on_b_resume_button_up"]
 [connection signal="button_up" from="CanvasLayer/contPaused/VBoxContainer/BRestart" to="." method="_on_b_restart_button_up"]
 [connection signal="pressed" from="CanvasLayer/contPaused/VBoxContainer/BQuit" to="." method="_on_b_quit_pressed"]
 [connection signal="button_up" from="CanvasLayer/contReturn/VBoxContainer/BConfirmQuit" to="." method="_on_b_confirm_quit_button_up"]
 [connection signal="button_up" from="CanvasLayer/contReturn/VBoxContainer/BBackToPause" to="." method="_on_b_back_to_pause_button_up"]
+[connection signal="add_life" from="Player" to="." method="_on_player_add_life"]
 [connection signal="timeout" from="Player/TimerShootColdown" to="Player" method="_on_timer_shoot_coldown_timeout"]
 [connection signal="timeout" from="Player/TimerRespawn" to="Player" method="_on_timer_respawn_timeout"]
 [connection signal="timeout" from="Player/TimerImunity" to="Player" method="_on_timer_imunity_timeout"]
+[connection signal="timeout" from="Player/TimerShield" to="Player" method="_on_timer_shield_timeout"]
 [connection signal="timeout" from="AsteroidSpawner/SpawnTimer" to="AsteroidSpawner" method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="AsteroidSpawner2/SpawnTimer" to="AsteroidSpawner2" method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="AsteroidSpawner3/SpawnTimer" to="AsteroidSpawner3" method="_on_spawn_timer_timeout"]
