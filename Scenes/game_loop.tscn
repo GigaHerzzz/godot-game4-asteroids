@@ -1,12 +1,13 @@
-[gd_scene load_steps=14 format=3 uid="uid://cv61gse5n84l0"]
+[gd_scene load_steps=15 format=3 uid="uid://cv61gse5n84l0"]
 
 [ext_resource type="Script" uid="uid://dtpa601swsn3h" path="res://Scripts/Controllers/GameController.gd" id="1_u7gwu"]
 [ext_resource type="Theme" uid="uid://b5pgyyy6mq1f" path="res://Theme/game_theme.tres" id="1_yw6yy"]
 [ext_resource type="Script" uid="uid://cxquyy50cg4pw" path="res://Scripts/Controllers/PlayerController.gd" id="2_o1o31"]
 [ext_resource type="Texture2D" uid="uid://dguwom6hvtxoj" path="res://icon.svg" id="3_u7gwu"]
 [ext_resource type="PackedScene" uid="uid://0dceyqxji7s4" path="res://Scenes/entities/projectile.tscn" id="4_wb67d"]
-[ext_resource type="PackedScene" uid="uid://dwa0il0fhyaa5" path="res://Scenes/entities/power_up.tscn" id="7_af5am"]
+[ext_resource type="Script" uid="uid://dx7jk3v0tuqmg" path="res://Scripts/Spawner/power_up_spawner.gd" id="7_af5am"]
 [ext_resource type="Script" uid="uid://dchfmt45die7c" path="res://Scripts/Spawner/asteroid_spawner.gd" id="7_ed4u3"]
+[ext_resource type="PackedScene" uid="uid://dble4f7at6vxu" path="res://Scenes/entities/enemy_ship.tscn" id="8_af5am"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wb67d"]
 radius = 64.0312
@@ -339,42 +340,47 @@ texture = ExtResource("3_u7gwu")
 [node name="TimerShield" type="Timer" parent="Player"]
 one_shot = true
 
-[node name="DestroyerWall" type="Area2D" parent="." groups=["destroy", "destroyer"]]
+[node name="TimerGunMode" type="Timer" parent="Player"]
+one_shot = true
+
+[node name="DestroyerWalls" type="Node" parent="."]
+
+[node name="DestroyerWall" type="Area2D" parent="DestroyerWalls" groups=["destroy", "destroyer"]]
 position = Vector2(-412, 535)
 scale = Vector2(2.24, 1.8)
 collision_layer = 8388608
-collision_mask = 2
+collision_mask = 54
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DestroyerWall"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DestroyerWalls/DestroyerWall"]
 shape = SubResource("RectangleShape2D_wb67d")
 
-[node name="DestroyerWall2" type="Area2D" parent="." groups=["destroy", "destroyer"]]
+[node name="DestroyerWall2" type="Area2D" parent="DestroyerWalls" groups=["destroy", "destroyer"]]
 position = Vector2(2332, 535)
 scale = Vector2(2.24, 1.8)
 collision_layer = 8388608
-collision_mask = 2
+collision_mask = 54
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DestroyerWall2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DestroyerWalls/DestroyerWall2"]
 shape = SubResource("RectangleShape2D_wb67d")
 
-[node name="DestroyerWall3" type="Area2D" parent="." groups=["destroy", "destroyer"]]
+[node name="DestroyerWall3" type="Area2D" parent="DestroyerWalls" groups=["destroy", "destroyer"]]
 position = Vector2(931, -404)
 rotation = 1.57079
 scale = Vector2(2.24, 3.2)
 collision_layer = 8388608
-collision_mask = 2
+collision_mask = 54
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DestroyerWall3"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DestroyerWalls/DestroyerWall3"]
 shape = SubResource("RectangleShape2D_wb67d")
 
-[node name="DestroyerWall4" type="Area2D" parent="." groups=["destroy", "destroyer"]]
+[node name="DestroyerWall4" type="Area2D" parent="DestroyerWalls" groups=["destroy", "destroyer"]]
 position = Vector2(931, 1444)
 rotation = 1.57079
 scale = Vector2(2.24, 3.2)
 collision_layer = 8388608
-collision_mask = 2
+collision_mask = 54
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DestroyerWall4"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DestroyerWalls/DestroyerWall4"]
 shape = SubResource("RectangleShape2D_wb67d")
 
 [node name="AsteroidSpawner" type="Node2D" parent="."]
@@ -394,7 +400,7 @@ spawning_vertical = true
 [node name="SpawnTimer" type="Timer" parent="AsteroidSpawner2"]
 
 [node name="AsteroidSpawner3" type="Node2D" parent="."]
-position = Vector2(-134, -76)
+position = Vector2(2035, 1085)
 script = ExtResource("7_ed4u3")
 spawn_time_base = 3
 
@@ -407,20 +413,13 @@ spawn_time_base = 3
 
 [node name="SpawnTimer" type="Timer" parent="AsteroidSpawner4"]
 
-[node name="PowerUp" parent="." instance=ExtResource("7_af5am")]
-position = Vector2(492, 520)
+[node name="PowerUpSpawner" type="Node2D" parent="."]
+script = ExtResource("7_af5am")
 
-[node name="PowerUp2" parent="." instance=ExtResource("7_af5am")]
-position = Vector2(1556, 465)
-powerup_type = 1
+[node name="TimerSpawn" type="Timer" parent="PowerUpSpawner"]
 
-[node name="PowerUp3" parent="." instance=ExtResource("7_af5am")]
-position = Vector2(1295, 868)
-powerup_type = 2
-
-[node name="PowerUp4" parent="." instance=ExtResource("7_af5am")]
-position = Vector2(735, 868)
-powerup_type = 3
+[node name="EnemyShip" parent="." instance=ExtResource("8_af5am")]
+position = Vector2(321, 677)
 
 [connection signal="play_game" from="." to="Player" method="_on_game_loop_play_game"]
 [connection signal="player_died" from="." to="Player" method="_on_game_loop_player_died"]
@@ -438,7 +437,9 @@ powerup_type = 3
 [connection signal="timeout" from="Player/TimerRespawn" to="Player" method="_on_timer_respawn_timeout"]
 [connection signal="timeout" from="Player/TimerImunity" to="Player" method="_on_timer_imunity_timeout"]
 [connection signal="timeout" from="Player/TimerShield" to="Player" method="_on_timer_shield_timeout"]
+[connection signal="timeout" from="Player/TimerGunMode" to="Player" method="_on_timer_gun_mode_timeout"]
 [connection signal="timeout" from="AsteroidSpawner/SpawnTimer" to="AsteroidSpawner" method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="AsteroidSpawner2/SpawnTimer" to="AsteroidSpawner2" method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="AsteroidSpawner3/SpawnTimer" to="AsteroidSpawner3" method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="AsteroidSpawner4/SpawnTimer" to="AsteroidSpawner4" method="_on_spawn_timer_timeout"]
+[connection signal="timeout" from="PowerUpSpawner/TimerSpawn" to="PowerUpSpawner" method="_on_timer_spawn_timeout"]

@@ -21,7 +21,10 @@ extends Node2D
 @export var ready_time: int = 3
 
 @export var player_lives: int = 3
+@export var POWERUP_POINT_THRESHOLD: int = 500
 static var PLAYER_STARTING_LIVES: int = 3
+
+var spawning_powerups: bool = false
 
 signal play_game
 signal player_respawn
@@ -74,7 +77,13 @@ func set_game_over_score_display():
 func add_points() -> void:
 	score += 10
 	update_score_ui(false)
-	
+	if(!spawning_powerups and score >= POWERUP_POINT_THRESHOLD):
+		$PowerUpSpawner.start_spawning()
+		spawning_powerups = true
+	elif(score % POWERUP_POINT_THRESHOLD == 0):
+		$PowerUpSpawner.can_spawn_life = true
+		
+
 func player_hit() -> void:
 	if(!$Player.is_shielded):
 		player_lives -= 1

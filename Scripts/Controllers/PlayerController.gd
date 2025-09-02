@@ -24,6 +24,7 @@ enum shooting_mode {Single, Dobule, Triple}
 @export var gun: int = shooting_mode.Single
 
 @export var shield_time: int = 30
+@export var gun_time: int = 30
 
 signal add_life
 
@@ -110,6 +111,8 @@ func _on_game_loop_player_respawn() -> void:
 	can_shoot = false
 	can_move = false
 	$TimerShootColdown.stop()
+	$TimerGunMode.stop()
+	gun = shooting_mode.Single
 	velocity = Vector2.ZERO
 	visible = false
 	global_position = respawn_position
@@ -144,9 +147,11 @@ func add_power_up(type: int):
 			$SpriteShield.visible = true
 			$TimerShield.start(shield_time)
 		PowerUp.type.Double_shot:
+			$TimerGunMode.start(gun_time)
 			if(gun <= shooting_mode.Dobule):
 				gun = shooting_mode.Dobule
 		PowerUp.type.Triple_shot:
+			$TimerGunMode.start(gun_time)
 			gun = shooting_mode.Triple
 		PowerUp.type.Extra_life:
 			add_life.emit()
@@ -159,3 +164,7 @@ func disable_shield():
 	
 func _on_timer_shield_timeout() -> void:
 	disable_shield()
+
+
+func _on_timer_gun_mode_timeout() -> void:
+	gun = shooting_mode.Single
