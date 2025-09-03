@@ -1,5 +1,7 @@
 extends Node2D
 
+class_name GameController
+
 @onready var debug_container: MarginContainer = $CanvasLayer/contDebug
 @onready var game_overlay_contaienr: MarginContainer = $CanvasLayer/contGameOverlay
 @onready var ready_container: CenterContainer = $CanvasLayer/contReady
@@ -22,6 +24,7 @@ extends Node2D
 
 @export var player_lives: int = 3
 @export var POWERUP_POINT_THRESHOLD: int = 500
+@export var ENEMY_SPAWN_THRESHOLD: int = 100
 static var PLAYER_STARTING_LIVES: int = 3
 
 var spawning_powerups: bool = false
@@ -77,6 +80,9 @@ func set_game_over_score_display():
 func add_points() -> void:
 	score += 10
 	update_score_ui(false)
+	if(score % ENEMY_SPAWN_THRESHOLD == 0):
+		print("Spawning enemy")
+		$EnemySpawner.spawn_enemy()
 	if(!spawning_powerups and score >= POWERUP_POINT_THRESHOLD):
 		$PowerUpSpawner.start_spawning()
 		spawning_powerups = true
