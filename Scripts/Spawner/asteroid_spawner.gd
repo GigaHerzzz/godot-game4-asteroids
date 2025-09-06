@@ -11,8 +11,6 @@ func _on_spawn_timer_timeout() -> void:
 	var instance: Area2D = Globals.get_asteroid(rand_num).instantiate()
 	var window_size = DisplayServer.window_get_size()
 	add_child(instance)
-	instance.add_to_score.connect($"..".add_points)
-	instance.player_hit.connect($"..".player_hit)
 	
 	if(spawning_vertical):
 		var pos_x = randi_range(0, window_size.x)

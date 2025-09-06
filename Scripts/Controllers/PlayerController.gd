@@ -28,6 +28,10 @@ enum shooting_mode {Single, Dobule, Triple}
 
 signal add_life
 
+func _ready() -> void:
+	EventBus.player_hit.connect(got_hit)
+	EventBus.game_over.connect(game_over)
+
 func _process(delta: float) -> void:
 	if(Globals.current_state == Globals.State.PLAYING):
 		if(Input.is_action_pressed("fire") and can_shoot):
@@ -106,7 +110,7 @@ func _on_timer_shoot_coldown_timeout() -> void:
 
 
 #Player got hit, should dissapear and respawn in the middle after a vouple of seconds
-func _on_game_loop_player_respawn() -> void:
+func got_hit() -> void:
 	$CollisionShape2D.set_deferred("disabled", true)
 	can_shoot = false
 	can_move = false
@@ -131,7 +135,7 @@ func _on_timer_imunity_timeout() -> void:
 	can_shoot = true
 
 
-func _on_game_loop_player_died() -> void:
+func game_over() -> void:
 	$CollisionShape2D.set_deferred("disabled", true)
 	can_shoot = false
 	can_move = false

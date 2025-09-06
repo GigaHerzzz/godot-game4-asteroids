@@ -38,12 +38,10 @@ func _on_timer_shoot_cooldown_timeout() -> void:
 
 func _on_area_2d_area_entered(area:Area2D) -> void:
 	if area.is_in_group("destroy"):
-		#print("Enemy down")
 		queue_free()
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if(body == player):
-		var ent: GameController = get_parent() as GameController
-		ent.player_hit()
+		EventBus.player_hit.emit()
 		queue_free()

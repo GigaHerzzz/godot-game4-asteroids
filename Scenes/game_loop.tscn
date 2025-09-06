@@ -422,8 +422,6 @@ script = ExtResource("7_af5am")
 script = ExtResource("8_tf7tj")
 
 [connection signal="play_game" from="." to="Player" method="_on_game_loop_play_game"]
-[connection signal="player_died" from="." to="Player" method="_on_game_loop_player_died"]
-[connection signal="player_respawn" from="." to="Player" method="_on_game_loop_player_respawn"]
 [connection signal="timeout" from="TimerReady" to="." method="_on_timer_ready_timeout"]
 [connection signal="button_up" from="CanvasLayer/contGameOver/VBoxContainer/BRestartGame" to="." method="_on_b_restart_game_button_up"]
 [connection signal="button_up" from="CanvasLayer/contGameOver/VBoxContainer/BQuitToMenu" to="." method="_on_b_quit_to_menu_button_up"]

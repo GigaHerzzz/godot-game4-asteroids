@@ -30,8 +30,6 @@ static var PLAYER_STARTING_LIVES: int = 3
 var spawning_powerups: bool = false
 
 signal play_game
-signal player_respawn
-signal player_died
 
 func prepare_game():
 	Globals.current_state = Globals.State.PREPARE
@@ -40,6 +38,8 @@ func prepare_game():
 	update_lives_ui()
 	timer_ready.start(ready_time)
 	player_lives = PLAYER_STARTING_LIVES
+	EventBus.player_hit.connect(player_hit)
+	EventBus.add_points.connect(add_points)
 
 func _ready() -> void:
 	prepare_game()
@@ -63,7 +63,7 @@ func player_dead():
 	set_game_over_score_display()
 	game_overlay_contaienr.visible = false
 	game_over_container.visible = true
-	player_died.emit()
+	EventBus.game_over.emit()
 
 func set_game_over_score_display():
 	l_game_over_score.text = "Score: %d" % score
@@ -77,8 +77,8 @@ func set_game_over_score_display():
 		update_score_ui(false)
 	l_game_over_hi_score.text = "High Score: %d" % Globals.high_score
 
-func add_points() -> void:
-	score += 10
+func add_points(points_to_add: int) -> void:
+	score += points_to_add
 	update_score_ui(false)
 	if(score % ENEMY_SPAWN_THRESHOLD == 0):
 		print("Spawning enemy")
@@ -97,7 +97,6 @@ func player_hit() -> void:
 		if(player_lives == 0):
 			player_dead()
 		else:
-			player_respawn.emit()
 			update_lives_ui()
 	else:
 		$Player.disable_shield()
