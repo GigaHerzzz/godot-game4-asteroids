@@ -1,23 +1,32 @@
-[gd_scene load_steps=4 format=3 uid="uid://djt6d7okgh4t"]
+[gd_scene load_steps=6 format=3 uid="uid://djt6d7okgh4t"]
 
 [ext_resource type="Script" uid="uid://biyryj1ukd8yq" path="res://Scripts/Other/Asteroid.gd" id="1_gg71j"]
 [ext_resource type="Texture2D" uid="uid://dguwom6hvtxoj" path="res://icon.svg" id="2_2cq05"]
+[ext_resource type="PackedScene" uid="uid://be1r28la78nfc" path="res://Scenes/Components/health_component.tscn" id="3_28ok6"]
+[ext_resource type="PackedScene" uid="uid://bahg7xn8ljy6q" path="res://Scenes/Components/hurtbox_component.tscn" id="4_28ok6"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ed4u3"]
-radius = 60.075
+[sub_resource type="CircleShape2D" id="CircleShape2D_28ok6"]
+radius = 25.02
 
-[node name="Asteroid_small_obj" type="Area2D"]
-collision_layer = 4
-collision_mask = 8388611
+[node name="AsteroidSmall" type="Node2D"]
 script = ExtResource("1_gg71j")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("2_2cq05")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-scale = Vector2(0.4, 0.4)
-shape = SubResource("CircleShape2D_ed4u3")
+[node name="HealthComponent" parent="." instance=ExtResource("3_28ok6")]
 
-[connection signal="area_entered" from="." to="." method="_on_area_entered"]
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("healthComponent") instance=ExtResource("4_28ok6")]
+collision_layer = 4
+collision_mask = 3
+healthComponent = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+shape = SubResource("CircleShape2D_28ok6")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+scale = Vector2(2.5, 2.5)
+
+[connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

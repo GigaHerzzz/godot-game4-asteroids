@@ -8,7 +8,7 @@ func _ready() -> void:
 
 func _on_spawn_timer_timeout() -> void:
 	var rand_num = randi_range(0,2)
-	var instance: Area2D = Globals.get_asteroid(rand_num).instantiate()
+	var instance: Node2D = Globals.get_asteroid(rand_num).instantiate()
 	var window_size = DisplayServer.window_get_size()
 	add_child(instance)
 	

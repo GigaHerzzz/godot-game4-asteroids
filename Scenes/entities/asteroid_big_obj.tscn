@@ -1,22 +1,33 @@
-[gd_scene load_steps=4 format=3 uid="uid://djr47cfts4fww"]
+[gd_scene load_steps=6 format=3 uid="uid://djr47cfts4fww"]
 
 [ext_resource type="Script" uid="uid://biyryj1ukd8yq" path="res://Scripts/Other/Asteroid.gd" id="1_m0d2n"]
 [ext_resource type="Texture2D" uid="uid://dguwom6hvtxoj" path="res://icon.svg" id="2_j7fbi"]
+[ext_resource type="PackedScene" uid="uid://be1r28la78nfc" path="res://Scenes/Components/health_component.tscn" id="3_cpjae"]
+[ext_resource type="PackedScene" uid="uid://bahg7xn8ljy6q" path="res://Scenes/Components/hurtbox_component.tscn" id="4_7ll7a"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ed4u3"]
-radius = 60.075
+[sub_resource type="CircleShape2D" id="CircleShape2D_cpjae"]
+radius = 61.131
 
-[node name="Asteroid_big_obj" type="Area2D"]
-collision_layer = 4
-collision_mask = 8388611
+[node name="AsteroidBig" type="Node2D"]
 script = ExtResource("1_m0d2n")
 size = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_j7fbi")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_ed4u3")
+[node name="HealthComponent" parent="." instance=ExtResource("3_cpjae")]
 
-[connection signal="area_entered" from="." to="." method="_on_area_entered"]
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("healthComponent") instance=ExtResource("4_7ll7a")]
+collision_layer = 4
+collision_mask = 3
+healthComponent = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+shape = SubResource("CircleShape2D_cpjae")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+scale = Vector2(6.3, 6.3)
+
+[connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]
+
+[editable path="HurtboxComponent"]
