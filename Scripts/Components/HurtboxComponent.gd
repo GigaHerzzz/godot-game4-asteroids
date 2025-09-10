@@ -6,6 +6,9 @@ class_name HurtboxComponent
 func _ready() -> void:
 	if healthComponent == null:
 		printerr("%s is missing HealthComponent!" % name)
+		
+func toggle_disabled(is_disabled: bool):
+	get_child(0).set_deferred("disabled", is_disabled)
 
 func _on_area_entered(area:Area2D) -> void:
 	if area is HitboxComponent:

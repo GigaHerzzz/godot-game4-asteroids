@@ -1,19 +1,22 @@
-[gd_scene load_steps=6 format=3 uid="uid://djt6d7okgh4t"]
+[gd_scene load_steps=8 format=3 uid="uid://djt6d7okgh4t"]
 
 [ext_resource type="Script" uid="uid://biyryj1ukd8yq" path="res://Scripts/Other/Asteroid.gd" id="1_gg71j"]
-[ext_resource type="Texture2D" uid="uid://dguwom6hvtxoj" path="res://icon.svg" id="2_2cq05"]
+[ext_resource type="Texture2D" uid="uid://c7h2een5mm86u" path="res://Assets/Art/Entities/meteorGrey_small1.png" id="2_tqm4f"]
 [ext_resource type="PackedScene" uid="uid://be1r28la78nfc" path="res://Scenes/Components/health_component.tscn" id="3_28ok6"]
 [ext_resource type="PackedScene" uid="uid://bahg7xn8ljy6q" path="res://Scenes/Components/hurtbox_component.tscn" id="4_28ok6"]
+[ext_resource type="PackedScene" uid="uid://b0hu8k6o1fhtc" path="res://Scenes/Components/hitbox_component.tscn" id="5_tqm4f"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_28ok6"]
-radius = 25.02
+radius = 14.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dxnpd"]
+radius = 14.0
 
 [node name="AsteroidSmall" type="Node2D"]
 script = ExtResource("1_gg71j")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.4, 0.4)
-texture = ExtResource("2_2cq05")
+texture = ExtResource("2_tqm4f")
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_28ok6")]
 
@@ -26,7 +29,14 @@ healthComponent = NodePath("../HealthComponent")
 shape = SubResource("CircleShape2D_28ok6")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-scale = Vector2(2.5, 2.5)
+scale = Vector2(1.3, 1.3)
+
+[node name="HitboxComponent" parent="." instance=ExtResource("5_tqm4f")]
+collision_layer = 4
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("CircleShape2D_dxnpd")
 
 [connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

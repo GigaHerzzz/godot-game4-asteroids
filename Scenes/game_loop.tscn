@@ -1,16 +1,17 @@
-[gd_scene load_steps=14 format=3 uid="uid://cv61gse5n84l0"]
+[gd_scene load_steps=19 format=3 uid="uid://cv61gse5n84l0"]
 
 [ext_resource type="Script" uid="uid://dtpa601swsn3h" path="res://Scripts/Controllers/GameController.gd" id="1_u7gwu"]
 [ext_resource type="Theme" uid="uid://b5pgyyy6mq1f" path="res://Theme/game_theme.tres" id="1_yw6yy"]
 [ext_resource type="Script" uid="uid://cxquyy50cg4pw" path="res://Scripts/Controllers/PlayerController.gd" id="2_o1o31"]
-[ext_resource type="Texture2D" uid="uid://dguwom6hvtxoj" path="res://icon.svg" id="3_u7gwu"]
 [ext_resource type="PackedScene" uid="uid://0dceyqxji7s4" path="res://Scenes/entities/projectile.tscn" id="4_wb67d"]
+[ext_resource type="Texture2D" uid="uid://bp4qg4htoftwi" path="res://Assets/Art/Entities/playerShip.png" id="5_2dsj8"]
+[ext_resource type="Texture2D" uid="uid://bfu6tmdvqk76l" path="res://Assets/Art/Powerups/shield.png" id="6_2dsj8"]
+[ext_resource type="PackedScene" uid="uid://bahg7xn8ljy6q" path="res://Scenes/Components/hurtbox_component.tscn" id="6_tf7tj"]
 [ext_resource type="Script" uid="uid://dx7jk3v0tuqmg" path="res://Scripts/Spawner/power_up_spawner.gd" id="7_af5am"]
 [ext_resource type="Script" uid="uid://dchfmt45die7c" path="res://Scripts/Spawner/asteroid_spawner.gd" id="7_ed4u3"]
+[ext_resource type="PackedScene" uid="uid://be1r28la78nfc" path="res://Scenes/Components/health_component.tscn" id="7_nbpmo"]
+[ext_resource type="PackedScene" uid="uid://ckpdi6jwtuxe" path="res://Scenes/Components/grab_component.tscn" id="8_qd7mf"]
 [ext_resource type="Script" uid="uid://dvt6ntdqb0nlt" path="res://Scripts/Spawner/enemy_spawner.gd" id="8_tf7tj"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_wb67d"]
-radius = 64.0312
 
 [sub_resource type="Animation" id="Animation_af5am"]
 length = 0.001
@@ -53,8 +54,15 @@ _data = {
 &"respawn": SubResource("Animation_ed4u3")
 }
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_nbpmo"]
+radius = 39.0512
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qd7mf"]
+radius = 39.0
+
 [node name="GameLoop" type="Node2D"]
 script = ExtResource("1_u7gwu")
+POWERUP_POINT_THRESHOLD = 100
 
 [node name="TimerReady" type="Timer" parent="."]
 wait_time = 3.0
@@ -292,17 +300,21 @@ text = "Back
 
 [node name="Player" type="CharacterBody2D" parent="."]
 position = Vector2(980, 517)
-collision_mask = 60
+collision_mask = 0
 motion_mode = 1
 script = ExtResource("2_o1o31")
 respawn_position = Vector2(980, 517)
 Bullet = ExtResource("4_wb67d")
 
 [node name="Sprite2D" type="Sprite2D" parent="Player"]
-texture = ExtResource("3_u7gwu")
+texture = ExtResource("5_2dsj8")
+flip_v = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-shape = SubResource("CircleShape2D_wb67d")
+[node name="SpriteShield" type="Sprite2D" parent="Player"]
+visible = false
+self_modulate = Color(0, 1, 1, 1)
+rotation = 3.14159
+texture = ExtResource("6_2dsj8")
 
 [node name="TimerShootColdown" type="Timer" parent="Player"]
 one_shot = true
@@ -327,23 +339,31 @@ libraries = {
 &"": SubResource("AnimationLibrary_tf7tj")
 }
 
-[node name="SpriteShield" type="Sprite2D" parent="Player"]
-visible = false
-self_modulate = Color(0.0235294, 1, 1, 0.470588)
-rotation = 0.63879
-scale = Vector2(1.25, 1.25)
-texture = ExtResource("3_u7gwu")
-
 [node name="TimerShield" type="Timer" parent="Player"]
 one_shot = true
 
 [node name="TimerGunMode" type="Timer" parent="Player"]
 one_shot = true
 
+[node name="HealthComponent" parent="Player" instance=ExtResource("7_nbpmo")]
+max_health = 30
+
+[node name="HurtboxComponent" parent="Player" node_paths=PackedStringArray("healthComponent") instance=ExtResource("6_tf7tj")]
+collision_mask = 60
+healthComponent = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/HurtboxComponent"]
+shape = SubResource("CircleShape2D_nbpmo")
+
+[node name="GrabComponent" parent="Player" instance=ExtResource("8_qd7mf")]
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/GrabComponent"]
+shape = SubResource("CircleShape2D_qd7mf")
+
 [node name="AsteroidSpawner" type="Node2D" parent="."]
 position = Vector2(5, 1152)
 script = ExtResource("7_ed4u3")
-spawn_time_base = 3
 spawning_vertical = true
 
 [node name="SpawnTimer" type="Timer" parent="AsteroidSpawner"]
@@ -351,7 +371,6 @@ spawning_vertical = true
 [node name="AsteroidSpawner2" type="Node2D" parent="."]
 position = Vector2(5, -76)
 script = ExtResource("7_ed4u3")
-spawn_time_base = 3
 spawning_vertical = true
 
 [node name="SpawnTimer" type="Timer" parent="AsteroidSpawner2"]
@@ -359,14 +378,12 @@ spawning_vertical = true
 [node name="AsteroidSpawner3" type="Node2D" parent="."]
 position = Vector2(2035, 1085)
 script = ExtResource("7_ed4u3")
-spawn_time_base = 3
 
 [node name="SpawnTimer" type="Timer" parent="AsteroidSpawner3"]
 
 [node name="AsteroidSpawner4" type="Node2D" parent="."]
 position = Vector2(2068, -76)
 script = ExtResource("7_ed4u3")
-spawn_time_base = 3
 
 [node name="SpawnTimer" type="Timer" parent="AsteroidSpawner4"]
 
@@ -393,8 +410,12 @@ script = ExtResource("8_tf7tj")
 [connection signal="timeout" from="Player/TimerImunity" to="Player" method="_on_timer_imunity_timeout"]
 [connection signal="timeout" from="Player/TimerShield" to="Player" method="_on_timer_shield_timeout"]
 [connection signal="timeout" from="Player/TimerGunMode" to="Player" method="_on_timer_gun_mode_timeout"]
+[connection signal="died" from="Player/HealthComponent" to="Player" method="_on_health_component_died"]
+[connection signal="hurt" from="Player/HealthComponent" to="Player" method="_on_health_component_hurt"]
 [connection signal="timeout" from="AsteroidSpawner/SpawnTimer" to="AsteroidSpawner" method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="AsteroidSpawner2/SpawnTimer" to="AsteroidSpawner2" method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="AsteroidSpawner3/SpawnTimer" to="AsteroidSpawner3" method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="AsteroidSpawner4/SpawnTimer" to="AsteroidSpawner4" method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="PowerUpSpawner/TimerSpawn" to="PowerUpSpawner" method="_on_timer_spawn_timeout"]
+
+[editable path="Player/HurtboxComponent"]

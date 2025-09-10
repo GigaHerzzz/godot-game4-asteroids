@@ -1,27 +1,28 @@
 [gd_scene load_steps=5 format=3 uid="uid://0dceyqxji7s4"]
 
 [ext_resource type="Script" uid="uid://dihvi6npdv0au" path="res://Scripts/Other/Projectile.gd" id="1_yr2qt"]
-[ext_resource type="Texture2D" uid="uid://dguwom6hvtxoj" path="res://icon.svg" id="2_tl4hk"]
+[ext_resource type="Texture2D" uid="uid://b1c71cpnmi0fq" path="res://Assets/Art/Entities/playerLaser.png" id="2_ohxpy"]
 [ext_resource type="PackedScene" uid="uid://b0hu8k6o1fhtc" path="res://Scenes/Components/hitbox_component.tscn" id="3_ohxpy"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_tvhbq"]
-radius = 12.0416
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ohxpy"]
+radius = 6.0
+height = 36.0
 
 [node name="Projectile" type="Node2D" groups=["bullet"]]
 script = ExtResource("1_yr2qt")
 
 [node name="RigidBody2D" type="Sprite2D" parent="."]
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("2_tl4hk")
+texture = ExtResource("2_ohxpy")
 
 [node name="HitboxComponent" parent="." instance=ExtResource("3_ohxpy")]
 collision_layer = 2
 collision_mask = 20
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
-shape = SubResource("CircleShape2D_tvhbq")
+shape = SubResource("CapsuleShape2D_ohxpy")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+scale = Vector2(0.6, 1.7)
 
 [connection signal="area_entered" from="HitboxComponent" to="." method="_on_hitbox_component_area_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

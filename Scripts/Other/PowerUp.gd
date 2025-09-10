@@ -24,10 +24,8 @@ func set_powerup_look():
 
 func _on_timer_timeout() -> void:
 	queue_free()
-	
 
-
-func _on_area_2d_body_entered(body:Node2D) -> void:
+func _on_pickup_component_picked_up(body: PlayerController) -> void:
 	if(body is PlayerController):
 		body.add_power_up(powerup_type)
 		queue_free()

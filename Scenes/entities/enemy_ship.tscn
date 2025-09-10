@@ -1,30 +1,48 @@
-[gd_scene load_steps=4 format=3 uid="uid://dble4f7at6vxu"]
+[gd_scene load_steps=8 format=3 uid="uid://dble4f7at6vxu"]
 
 [ext_resource type="Script" uid="uid://cp35rvjomb1ba" path="res://Scripts/Other/enemy_ship.gd" id="1_pkgen"]
-[ext_resource type="Texture2D" uid="uid://dguwom6hvtxoj" path="res://icon.svg" id="2_ts706"]
+[ext_resource type="Texture2D" uid="uid://dfaiuhghmbd5d" path="res://Assets/Art/Entities/enemyShip.png" id="2_7ab4b"]
+[ext_resource type="PackedScene" uid="uid://be1r28la78nfc" path="res://Scenes/Components/health_component.tscn" id="3_ts706"]
+[ext_resource type="PackedScene" uid="uid://bahg7xn8ljy6q" path="res://Scenes/Components/hurtbox_component.tscn" id="4_7ab4b"]
+[ext_resource type="PackedScene" uid="uid://b0hu8k6o1fhtc" path="res://Scenes/Components/hitbox_component.tscn" id="5_u4oh2"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ed4u3"]
-radius = 41.0122
+[sub_resource type="CircleShape2D" id="CircleShape2D_rcbcu"]
+radius = 40.05
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cwd4m"]
+radius = 40.0
 
 [node name="EnemyShip" type="Node2D"]
 script = ExtResource("1_pkgen")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-self_modulate = Color(0.974042, 0.577331, 1, 1)
-scale = Vector2(0.7, 0.7)
-texture = ExtResource("2_ts706")
-
-[node name="Area2D" type="Area2D" parent="."]
-collision_layer = 16
-collision_mask = 8388611
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("CircleShape2D_ed4u3")
+texture = ExtResource("2_7ab4b")
 
 [node name="TimerShootCooldown" type="Timer" parent="."]
 
 [node name="EnemyCursor" type="Node2D" parent="."]
 
-[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[node name="HealthComponent" parent="." instance=ExtResource("3_ts706")]
+max_health = 30
+
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("healthComponent") instance=ExtResource("4_7ab4b")]
+collision_layer = 16
+collision_mask = 3
+healthComponent = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+shape = SubResource("CircleShape2D_rcbcu")
+
+[node name="HitboxComponent" parent="." instance=ExtResource("5_u4oh2")]
+collision_layer = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("CircleShape2D_cwd4m")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+scale = Vector2(3.7, 3.7)
+
 [connection signal="timeout" from="TimerShootCooldown" to="." method="_on_timer_shoot_cooldown_timeout"]
+[connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]
+[connection signal="hurt" from="HealthComponent" to="." method="_on_health_component_hurt"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

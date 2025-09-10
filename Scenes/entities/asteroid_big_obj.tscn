@@ -1,19 +1,23 @@
-[gd_scene load_steps=6 format=3 uid="uid://djr47cfts4fww"]
+[gd_scene load_steps=8 format=3 uid="uid://djr47cfts4fww"]
 
 [ext_resource type="Script" uid="uid://biyryj1ukd8yq" path="res://Scripts/Other/Asteroid.gd" id="1_m0d2n"]
-[ext_resource type="Texture2D" uid="uid://dguwom6hvtxoj" path="res://icon.svg" id="2_j7fbi"]
+[ext_resource type="Texture2D" uid="uid://dcuje77114py0" path="res://Assets/Art/Entities/meteorGrey_big1.png" id="2_7ll7a"]
 [ext_resource type="PackedScene" uid="uid://be1r28la78nfc" path="res://Scenes/Components/health_component.tscn" id="3_cpjae"]
 [ext_resource type="PackedScene" uid="uid://bahg7xn8ljy6q" path="res://Scenes/Components/hurtbox_component.tscn" id="4_7ll7a"]
+[ext_resource type="PackedScene" uid="uid://b0hu8k6o1fhtc" path="res://Scenes/Components/hitbox_component.tscn" id="5_7ll7a"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cpjae"]
-radius = 61.131
+radius = 44.0114
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4ql78"]
+radius = 45.0
 
 [node name="AsteroidBig" type="Node2D"]
 script = ExtResource("1_m0d2n")
 size = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_j7fbi")
+texture = ExtResource("2_7ll7a")
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_cpjae")]
 
@@ -26,8 +30,16 @@ healthComponent = NodePath("../HealthComponent")
 shape = SubResource("CircleShape2D_cpjae")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-scale = Vector2(6.3, 6.3)
+scale = Vector2(4.2, 4.2)
+
+[node name="HitboxComponent" parent="." instance=ExtResource("5_7ll7a")]
+collision_layer = 4
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("CircleShape2D_4ql78")
 
 [connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
 
 [editable path="HurtboxComponent"]

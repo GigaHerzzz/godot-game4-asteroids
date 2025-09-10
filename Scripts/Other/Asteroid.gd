@@ -45,7 +45,8 @@ func fracture():
 #TODO: Change it so the player can collide with the asteroid
 func _on_body_entered(body:Node2D) -> void:
 	if body.name == "Player":
-		EventBus.player_hit.emit()
+		#EventBus.player_hit.emit()
+		pass
 
 
 func _on_health_component_died() -> void:

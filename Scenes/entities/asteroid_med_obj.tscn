@@ -1,20 +1,23 @@
-[gd_scene load_steps=6 format=3 uid="uid://cjb7jgluy5y46"]
+[gd_scene load_steps=8 format=3 uid="uid://cjb7jgluy5y46"]
 
 [ext_resource type="Script" uid="uid://biyryj1ukd8yq" path="res://Scripts/Other/Asteroid.gd" id="1_mryu5"]
-[ext_resource type="Texture2D" uid="uid://dguwom6hvtxoj" path="res://icon.svg" id="2_w11aq"]
+[ext_resource type="Texture2D" uid="uid://pnyfj5v18uut" path="res://Assets/Art/Entities/meteorGrey_med1.png" id="2_t2hw4"]
 [ext_resource type="PackedScene" uid="uid://be1r28la78nfc" path="res://Scenes/Components/health_component.tscn" id="3_v10iy"]
 [ext_resource type="PackedScene" uid="uid://bahg7xn8ljy6q" path="res://Scenes/Components/hurtbox_component.tscn" id="4_t2hw4"]
+[ext_resource type="PackedScene" uid="uid://b0hu8k6o1fhtc" path="res://Scenes/Components/hitbox_component.tscn" id="5_t2hw4"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_v10iy"]
-radius = 44.0
+radius = 22.0907
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3unrs"]
+radius = 22.0907
 
 [node name="AsteroidMedium" type="Node2D"]
 script = ExtResource("1_mryu5")
 size = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.7, 0.7)
-texture = ExtResource("2_w11aq")
+texture = ExtResource("2_t2hw4")
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_v10iy")]
 
@@ -27,7 +30,14 @@ healthComponent = NodePath("../HealthComponent")
 shape = SubResource("CircleShape2D_v10iy")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-scale = Vector2(4.4, 4.4)
+scale = Vector2(2.1, 2.1)
+
+[node name="HitboxComponent" parent="." instance=ExtResource("5_t2hw4")]
+collision_layer = 4
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("CircleShape2D_3unrs")
 
 [connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

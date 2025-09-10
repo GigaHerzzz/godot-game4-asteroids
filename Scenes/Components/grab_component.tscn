@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ckpdi6jwtuxe"]
+
+[ext_resource type="Script" uid="uid://cjvcmas2mhsv5" path="res://Scripts/Components/GrabComponent.gd" id="1_aufno"]
+
+[node name="GrabComponent" type="Area2D"]
+script = ExtResource("1_aufno")

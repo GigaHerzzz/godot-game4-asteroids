@@ -11,6 +11,7 @@ enum shooting_mode {Single, Dobule, Triple}
 @export var respawn_position: Vector2 = Vector2(0,0)
 @export var respawn_time: int = 3
 @export var imunity_time: int = 5
+@export var healing_amount: int = 10
 
 @export var rotation_acc: int = 150
 
@@ -29,7 +30,7 @@ enum shooting_mode {Single, Dobule, Triple}
 signal add_life
 
 func _ready() -> void:
-	EventBus.player_hit.connect(got_hit)
+	#EventBus.player_hit.connect(got_hit)
 	EventBus.game_over.connect(game_over)
 
 func _process(delta: float) -> void:
@@ -111,7 +112,9 @@ func _on_timer_shoot_coldown_timeout() -> void:
 
 #Player got hit, should dissapear and respawn in the middle after a vouple of seconds
 func got_hit() -> void:
-	$CollisionShape2D.set_deferred("disabled", true)
+	#$HurtboxComponent.set_deferred("disabled", true)
+	EventBus.player_hit.emit()
+	$HurtboxComponent.toggle_disabled(true)
 	can_shoot = false
 	can_move = false
 	$TimerShootColdown.stop()
@@ -131,12 +134,12 @@ func _on_timer_respawn_timeout() -> void:
 
 
 func _on_timer_imunity_timeout() -> void:
-	$CollisionShape2D.set_deferred("disabled", false)
+	$HurtboxComponent.toggle_disabled(false)
 	can_shoot = true
 
 
 func game_over() -> void:
-	$CollisionShape2D.set_deferred("disabled", true)
+	$HurtboxComponent.toggle_disabled(false)
 	can_shoot = false
 	can_move = false
 	velocity = Vector2.ZERO
@@ -159,6 +162,7 @@ func add_power_up(type: int):
 			gun = shooting_mode.Triple
 		PowerUp.type.Extra_life:
 			add_life.emit()
+			$HealthComponent.add_health(healing_amount)
 			
 
 func disable_shield():
@@ -172,3 +176,11 @@ func _on_timer_shield_timeout() -> void:
 
 func _on_timer_gun_mode_timeout() -> void:
 	gun = shooting_mode.Single
+
+func _on_health_component_died() -> void:
+	got_hit()
+
+
+func _on_health_component_hurt() -> void:
+	print("Player Got hit")
+	got_hit()
