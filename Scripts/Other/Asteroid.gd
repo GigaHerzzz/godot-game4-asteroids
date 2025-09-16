@@ -27,6 +27,7 @@ func _process(delta: float) -> void:
 		$Sprite2D.rotate(rotation_speed * delta)
 		
 func fracture():
+	EventBus.spawn_explosion.emit(global_position, 0.5)
 	match size:
 		Sizes.BIG:
 			for i in range(2):

@@ -21,6 +21,8 @@ func _process(delta: float) -> void:
 			position += move_vector * move_speed * delta
 			$EnemyCursor.look_at(player.global_position)
 			$EnemyCursor.rotate(-PI/2)
+			$Sprite2D.look_at(player.global_position)
+			$Sprite2D.rotate(-PI/2)
 	
 func add_player(player_ref: PlayerController):
 	player = player_ref

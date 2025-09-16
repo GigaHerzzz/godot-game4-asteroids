@@ -8,6 +8,7 @@ class_name GameController
 @onready var paused_container: MarginContainer = $CanvasLayer/contPaused
 @onready var return_container: MarginContainer = $CanvasLayer/contReturn
 @onready var game_over_container: CenterContainer = $CanvasLayer/contGameOver
+@onready var mobile_ui: CanvasLayer = $Control/TouchControls
 
 @onready var score_label := $CanvasLayer/contGameOverlay/VBoxContainer/HBoxContainer/lScore
 @onready var high_score_label := $CanvasLayer/contGameOverlay/VBoxContainer/HBoxContainer2/lHiScore
@@ -17,10 +18,13 @@ class_name GameController
 @onready var l_game_over_score := $CanvasLayer/contGameOver/VBoxContainer/HBoxContainer/LabelPlayerScore
 @onready var l_game_over_hi_score := $CanvasLayer/contGameOver/VBoxContainer/HBoxContainer/LabelHiScore
 
+@onready var effect_explosion: PackedScene = preload("res://Scenes/Effects/effect_explosion.tscn")
+
 @onready var timer_ready := $TimerReady
 
 @export var score: int = 0
 @export var ready_time: int = 3
+@export var mobile_version:bool = false
 
 @export var player_lives: int = 3
 @export var POWERUP_POINT_THRESHOLD: int = 500
@@ -40,14 +44,21 @@ func prepare_game():
 	player_lives = PLAYER_STARTING_LIVES
 	EventBus.player_hit.connect(player_hit)
 	EventBus.add_points.connect(add_points)
-
+	EventBus.spawn_explosion.connect(add_effect)
+	
 func _ready() -> void:
 	prepare_game()
 	
 func _process(delta: float) -> void:
 	if(Input.is_action_just_pressed("pause")):
 		toggle_paused()
-
+		
+func set_mobile_ui():
+	if mobile_version: 
+		mobile_ui.visible = true
+	else:
+		mobile_ui.visible = false
+	
 func update_score_ui(update_hi_score: bool):
 	score_label.text = "Score: %d" % score
 	if update_hi_score:
@@ -100,6 +111,13 @@ func player_hit() -> void:
 			update_lives_ui()
 	else:
 		$Player.disable_shield()
+		
+func add_effect(pos: Vector2, inst_scale: float):
+	var inst: ExplosionEffect = effect_explosion.instantiate()
+	inst.set_size(inst_scale)
+	inst.global_position = pos
+	inst.start_particles()
+	add_child(inst)
 	
 # UI CODE
 func toggle_paused():

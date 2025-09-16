@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://b2rinw3emyeqv"]
+
+[ext_resource type="Texture2D" uid="uid://ch31xdlp31jvx" path="res://Assets/Art/Particles/smoke_08.png" id="1_ba6wy"]
+[ext_resource type="Script" uid="uid://b2v11121ukc82" path="res://Scripts/Effect/ExplosionEffect.gd" id="1_sbb65"]
+
+[sub_resource type="Curve" id="Curve_o1s6i"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.78481), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_ap4d4"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="EffectExplosion" type="Node2D"]
+script = ExtResource("1_sbb65")
+
+[node name="ParticleAsteroidShatter" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 3
+texture = ExtResource("1_ba6wy")
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+gravity = Vector2(0, 0)
+initial_velocity_max = 14.63
+angle_min = -386.2
+scale_amount_min = 0.5
+scale_amount_max = 0.5
+scale_amount_curve = SubResource("Curve_o1s6i")
+color = Color(0.788235, 0.266667, 0.0823529, 1)
+color_ramp = SubResource("Gradient_ap4d4")
+anim_speed_max = 110.52
+
+[connection signal="finished" from="ParticleAsteroidShatter" to="." method="_on_particle_asteroid_shatter_finished"]

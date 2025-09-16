@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://cjppcf382fc4y"]
+
+[ext_resource type="Texture2D" uid="uid://efn642o7wm3n" path="res://Assets/Art/UI/Buttons/icon_arrow_l.png" id="1_7oafw"]
+[ext_resource type="Texture2D" uid="uid://cir0ltq3xvlqe" path="res://Assets/Art/UI/Buttons/icon_arrow_r.png" id="2_fmnil"]
+[ext_resource type="Texture2D" uid="uid://t6tacijpboo2" path="res://Assets/Art/UI/Buttons/icon_jump.png" id="3_snpt6"]
+[ext_resource type="Texture2D" uid="uid://c6k3w1omagwqm" path="res://Assets/Art/UI/Buttons/icon_fire.png" id="4_7igyq"]
+
+[node name="TouchControls" type="CanvasLayer"]
+
+[node name="Left" type="TouchScreenButton" parent="."]
+position = Vector2(80, 920)
+scale = Vector2(2, 2)
+texture_normal = ExtResource("1_7oafw")
+action = "tilt_left"
+
+[node name="Right" type="TouchScreenButton" parent="."]
+position = Vector2(300, 920)
+scale = Vector2(2, 2)
+texture_normal = ExtResource("2_fmnil")
+action = "tilt_right"
+
+[node name="Thruster" type="TouchScreenButton" parent="."]
+position = Vector2(1500, 920)
+scale = Vector2(2, 2)
+texture_normal = ExtResource("3_snpt6")
+action = "forward_thrust"
+
+[node name="Shoot" type="TouchScreenButton" parent="."]
+position = Vector2(1700, 750)
+scale = Vector2(2, 2)
+texture_normal = ExtResource("4_7igyq")
+action = "fire"

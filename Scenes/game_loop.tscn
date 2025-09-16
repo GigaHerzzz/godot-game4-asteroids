@@ -1,8 +1,9 @@
-[gd_scene load_steps=19 format=3 uid="uid://cv61gse5n84l0"]
+[gd_scene load_steps=25 format=3 uid="uid://cv61gse5n84l0"]
 
 [ext_resource type="Script" uid="uid://dtpa601swsn3h" path="res://Scripts/Controllers/GameController.gd" id="1_u7gwu"]
 [ext_resource type="Theme" uid="uid://b5pgyyy6mq1f" path="res://Theme/game_theme.tres" id="1_yw6yy"]
 [ext_resource type="Script" uid="uid://cxquyy50cg4pw" path="res://Scripts/Controllers/PlayerController.gd" id="2_o1o31"]
+[ext_resource type="PackedScene" uid="uid://cjppcf382fc4y" path="res://Scenes/UI/touch_controls.tscn" id="3_d4nat"]
 [ext_resource type="PackedScene" uid="uid://0dceyqxji7s4" path="res://Scenes/entities/projectile.tscn" id="4_wb67d"]
 [ext_resource type="Texture2D" uid="uid://bp4qg4htoftwi" path="res://Assets/Art/Entities/playerShip.png" id="5_2dsj8"]
 [ext_resource type="Texture2D" uid="uid://bfu6tmdvqk76l" path="res://Assets/Art/Powerups/shield.png" id="6_2dsj8"]
@@ -12,6 +13,19 @@
 [ext_resource type="PackedScene" uid="uid://be1r28la78nfc" path="res://Scenes/Components/health_component.tscn" id="7_nbpmo"]
 [ext_resource type="PackedScene" uid="uid://ckpdi6jwtuxe" path="res://Scenes/Components/grab_component.tscn" id="8_qd7mf"]
 [ext_resource type="Script" uid="uid://dvt6ntdqb0nlt" path="res://Scripts/Spawner/enemy_spawner.gd" id="8_tf7tj"]
+[ext_resource type="Script" uid="uid://cd1hbjn6hit5g" path="res://Scripts/Effect/Trail.gd" id="11_o1s6i"]
+[ext_resource type="PackedScene" uid="uid://b2rinw3emyeqv" path="res://Scenes/Effects/effect_explosion.tscn" id="14_jap2v"]
+
+[sub_resource type="Environment" id="Environment_d4nat"]
+background_mode = 3
+glow_enabled = true
+
+[sub_resource type="Curve" id="Curve_o1s6i"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_o1s6i"]
+colors = PackedColorArray(2, 2, 2, 1, 1, 1, 1, 0)
 
 [sub_resource type="Animation" id="Animation_af5am"]
 length = 0.001
@@ -63,6 +77,9 @@ radius = 39.0
 [node name="GameLoop" type="Node2D"]
 script = ExtResource("1_u7gwu")
 POWERUP_POINT_THRESHOLD = 100
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_d4nat")
 
 [node name="TimerReady" type="Timer" parent="."]
 wait_time = 3.0
@@ -298,6 +315,15 @@ size_flags_vertical = 4
 text = "Back
 "
 
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TouchControls" parent="Control" instance=ExtResource("3_d4nat")]
+visible = false
+
 [node name="Player" type="CharacterBody2D" parent="."]
 position = Vector2(980, 517)
 collision_mask = 0
@@ -305,6 +331,16 @@ motion_mode = 1
 script = ExtResource("2_o1o31")
 respawn_position = Vector2(980, 517)
 Bullet = ExtResource("4_wb67d")
+
+[node name="TrailPoint" type="Node2D" parent="Player"]
+position = Vector2(0, -35)
+
+[node name="Trail" type="Line2D" parent="Player/TrailPoint"]
+top_level = true
+width_curve = SubResource("Curve_o1s6i")
+gradient = SubResource("Gradient_o1s6i")
+script = ExtResource("11_o1s6i")
+Max_length = 20
 
 [node name="Sprite2D" type="Sprite2D" parent="Player"]
 texture = ExtResource("5_2dsj8")
@@ -394,6 +430,8 @@ script = ExtResource("7_af5am")
 
 [node name="EnemySpawner" type="Node2D" parent="."]
 script = ExtResource("8_tf7tj")
+
+[node name="EffectExplosion" parent="." instance=ExtResource("14_jap2v")]
 
 [connection signal="play_game" from="." to="Player" method="_on_game_loop_play_game"]
 [connection signal="timeout" from="TimerReady" to="." method="_on_timer_ready_timeout"]
