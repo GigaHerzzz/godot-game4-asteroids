@@ -19,12 +19,15 @@ config/icon="res://icon.svg"
 
 Globals="*res://Scripts/Globals/Globals.gd"
 EventBus="*res://Scripts/Globals/EventBus.gd"
+TweenBus="*res://Scripts/Globals/TweenBus.gd"
 
 [display]
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/size/resizable=false
+window/stretch/mode="viewport"
+window/stretch/aspect="expand"
 
 [editor]
 
@@ -86,7 +89,6 @@ pointing/emulate_mouse_from_touch=false
 
 [rendering]
 
-textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="mobile"
 textures/vram_compression/import_etc2_astc=true
 viewport/hdr_2d=true
