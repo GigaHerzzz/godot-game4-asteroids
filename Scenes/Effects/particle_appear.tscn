@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://cdovqvyv4uxe3"]
+
+[ext_resource type="Texture2D" uid="uid://whf5k7ysn6ru" path="res://Assets/Art/Particles/star_07.png" id="1_b74u3"]
+[ext_resource type="Script" uid="uid://cpxklu7dlls6l" path="res://Scripts/Effect/particle_appear.gd" id="2_xwfdk"]
+
+[sub_resource type="Gradient" id="Gradient_xwfdk"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="ParticleAppear" type="CPUParticles2D"]
+emitting = false
+amount = 40
+texture = ExtResource("1_b74u3")
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+randomness = 0.52
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 389.83
+initial_velocity_max = 389.83
+angular_velocity_min = 235.93
+angular_velocity_max = 235.93
+radial_accel_max = 55.37
+angle_min = -358.0
+angle_max = 390.5
+scale_amount_min = 0.3
+scale_amount_max = 0.5
+color_ramp = SubResource("Gradient_xwfdk")
+script = ExtResource("2_xwfdk")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

@@ -6,7 +6,16 @@ enum type {Shield, Double_shot, Triple_shot, Extra_life}
 @export var powerup_type: type = type.Shield
 @export var time_alive: int = 10
 
+@export var shield_img: Texture
+@export var extra_life_img: Texture
+@export var shot2_img: Texture
+@export var shot3_img: Texture
+
+#TODO: Dodaj animacije in particle effecte ko se pojavi in se pobere/izgine
+
 func _ready() -> void:
+	if shield_img == null:
+		printerr("Missing shield texture")
 	set_powerup_look()
 	$Timer.start(time_alive)
 	
@@ -14,13 +23,13 @@ func _ready() -> void:
 func set_powerup_look():
 	match powerup_type:
 		type.Shield:
-			$Sprite2D.self_modulate = Color(1.0, 0.0, 0.0)
+			$Sprite2D.texture = shield_img
 		type.Double_shot:
-			$Sprite2D.self_modulate = Color(0.0, 0.23529412, 1.0)
+			$Sprite2D.texture = shield_img
 		type.Triple_shot:
-			$Sprite2D.self_modulate = Color(1.0, 0.67058825, 0.0)
+			$Sprite2D.texture = shield_img
 		type.Extra_life:
-			$Sprite2D.self_modulate = Color(0.39215687, 1.0, 0.0)
+			$Sprite2D.texture = shield_img
 
 func _on_timer_timeout() -> void:
 	queue_free()

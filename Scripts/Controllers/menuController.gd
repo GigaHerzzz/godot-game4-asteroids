@@ -12,7 +12,7 @@ extends Node2D
 
 func _ready() -> void:
 	Globals.load_game()
-	tween_main_menu_appears()
+	#tween_main_menu_appears()
 	#TweenBus.tween_button.connect(tween_menu_element_scale)
 	#Skip to the game, maybe make a debug window and use this
 	#if(Globals.current_state == Globals.State.PREPARE):

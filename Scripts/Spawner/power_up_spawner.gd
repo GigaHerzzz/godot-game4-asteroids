@@ -3,6 +3,7 @@ extends Node2D
 class_name PowerUpSpawner
 
 var power_up: PackedScene = preload("res://Scenes/entities/power_up.tscn")
+var particle_effect: PackedScene = preload("res://Scenes/Effects/particle_appear.tscn")
 
 var can_spawn_life: bool = false
 
@@ -22,13 +23,16 @@ func set_can_spawn_life():
 	
 func spawn_new_powerup(powerup_type: PowerUp.type):
 	var powerup = power_up.instantiate() as PowerUp
+	var effect = particle_effect.instantiate()
 	var randx = randi_range(0, play_area.x)
 	var randy = randi_range(0, play_area.y)
 	powerup.powerup_type = powerup_type
 	powerup.set_powerup_look()
 	add_child(powerup)
 	powerup.position = Vector2(randx, randy)
-	
+	effect.position = powerup.position
+	effect.start_particles()
+	add_child(effect)
 
 func _on_timer_spawn_timeout() -> void:
 	var power: int

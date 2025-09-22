@@ -1,17 +1,63 @@
-[gd_scene load_steps=5 format=3 uid="uid://dwa0il0fhyaa5"]
+[gd_scene load_steps=11 format=3 uid="uid://dwa0il0fhyaa5"]
 
 [ext_resource type="Script" uid="uid://dm3gi802oj5ob" path="res://Scripts/Other/PowerUp.gd" id="1_bf4hh"]
-[ext_resource type="Texture2D" uid="uid://dguwom6hvtxoj" path="res://icon.svg" id="2_rr7y8"]
+[ext_resource type="Texture2D" uid="uid://p08750ia871p" path="res://Assets/Art/Powerups/powerup-shield.png" id="2_iarvl"]
+[ext_resource type="Texture2D" uid="uid://jxtru240iwm" path="res://Assets/Art/Powerups/powerup-life.png" id="3_qg0ll"]
 [ext_resource type="PackedScene" uid="uid://dh1asuu805oiq" path="res://Scenes/Components/pickup_component.tscn" id="3_rr7y8"]
+[ext_resource type="Texture2D" uid="uid://61pqvbv302w" path="res://Assets/Art/Powerups/powerup-2shot.png" id="4_b0kqy"]
+[ext_resource type="Texture2D" uid="uid://dva6kj3jbemew" path="res://Assets/Art/Powerups/powerup-3shot.png" id="5_6ooyb"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_iarvl"]
-radius = 61.131
+radius = 70.0286
+
+[sub_resource type="Animation" id="Animation_qg0ll"]
+resource_name = "scale_pulse"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.25, 0.25), Vector2(0.3, 0.3), Vector2(0.25, 0.25)]
+}
+
+[sub_resource type="Animation" id="Animation_b0kqy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.25, 0.25)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6ooyb"]
+_data = {
+&"RESET": SubResource("Animation_b0kqy"),
+&"scale_pulse": SubResource("Animation_qg0ll")
+}
 
 [node name="PowerUp" type="Node2D"]
 script = ExtResource("1_bf4hh")
+shield_img = ExtResource("2_iarvl")
+extra_life_img = ExtResource("3_qg0ll")
+shot2_img = ExtResource("4_b0kqy")
+shot3_img = ExtResource("5_6ooyb")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_rr7y8")
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_iarvl")
 
 [node name="Timer" type="Timer" parent="."]
 
@@ -20,6 +66,12 @@ collision_layer = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickupComponent"]
 shape = SubResource("CircleShape2D_iarvl")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_6ooyb")
+}
+autoplay = "scale_pulse"
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="picked_up" from="PickupComponent" to="." method="_on_pickup_component_picked_up"]
