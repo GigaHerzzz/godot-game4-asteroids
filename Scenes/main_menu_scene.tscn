@@ -1,7 +1,103 @@
-[gd_scene load_steps=6 format=3 uid="uid://df0mkdyv4gagm"]
+[gd_scene load_steps=15 format=3 uid="uid://df0mkdyv4gagm"]
 
 [ext_resource type="Script" uid="uid://cuh6djtd7kde3" path="res://Scripts/Controllers/menuController.gd" id="1_jf31c"]
 [ext_resource type="Theme" uid="uid://e6s1gi814xp0" path="res://Theme/menu_theme.tres" id="1_l44du"]
+[ext_resource type="Texture2D" uid="uid://dx0guj1djndlg" path="res://Assets/Art/Particles/star1.png" id="2_2ddvu"]
+[ext_resource type="Texture2D" uid="uid://p08750ia871p" path="res://Assets/Art/Powerups/powerup-shield.png" id="3_6no0a"]
+[ext_resource type="Texture2D" uid="uid://dcuje77114py0" path="res://Assets/Art/Entities/meteorGrey_big1.png" id="3_gl3i6"]
+[ext_resource type="Texture2D" uid="uid://dfaiuhghmbd5d" path="res://Assets/Art/Entities/enemyShip.png" id="4_2ddvu"]
+[ext_resource type="Texture2D" uid="uid://bqs31pebddhvi" path="res://Assets/Art/Background/darkPurple.png" id="4_8y38f"]
+[ext_resource type="Texture2D" uid="uid://61pqvbv302w" path="res://Assets/Art/Powerups/powerup-2shot.png" id="4_ms8yy"]
+[ext_resource type="PackedScene" uid="uid://c4vvf12f4c6ig" path="res://Scenes/Effects/space_parallax.tscn" id="4_nr18t"]
+[ext_resource type="Texture2D" uid="uid://dva6kj3jbemew" path="res://Assets/Art/Powerups/powerup-3shot.png" id="5_gl3i6"]
+[ext_resource type="Texture2D" uid="uid://jxtru240iwm" path="res://Assets/Art/Powerups/powerup-life.png" id="6_2ddvu"]
+
+[sub_resource type="Animation" id="Animation_cgklw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/marginContainerMenu:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/marginContainerMenu/MainMenuContainer/lMadeBy:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CanvasLayer/marginContainerMenu/MainMenuContainer/container/VBoxContainer/Control:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CanvasLayer/marginContainerMenu/MainMenuContainer/container/VBoxContainer/Control2:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CanvasLayer/marginContainerMenu/MainMenuContainer/container/VBoxContainer/Control3:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CanvasLayer/marginContainerMenu/MainMenuContainer/container/VBoxContainer/Control4:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("CanvasLayer/marginContainerMenu/MainMenuContainer/container/VBoxContainer/lGameName:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_jf31c"]
 resource_name = "start_anim"
@@ -91,93 +187,6 @@ tracks/6/keys = {
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_cgklw"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CanvasLayer/marginContainerMenu:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CanvasLayer/marginContainerMenu/MainMenuContainer/lMadeBy:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("CanvasLayer/marginContainerMenu/MainMenuContainer/container/VBoxContainer/Control:modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("CanvasLayer/marginContainerMenu/MainMenuContainer/container/VBoxContainer/Control2:modulate")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("CanvasLayer/marginContainerMenu/MainMenuContainer/container/VBoxContainer/Control3:modulate")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("CanvasLayer/marginContainerMenu/MainMenuContainer/container/VBoxContainer/Control4:modulate")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("CanvasLayer/marginContainerMenu/MainMenuContainer/container/VBoxContainer/lGameName:modulate")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3y7gg"]
 _data = {
 &"RESET": SubResource("Animation_cgklw"),
@@ -187,20 +196,46 @@ _data = {
 [node name="MainMenuScene" type="Node2D"]
 script = ExtResource("1_jf31c")
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+self_modulate = Color(0, 0, 0, 1)
+position = Vector2(979, 413)
+scale = Vector2(6.84, 3.12)
+texture = ExtResource("4_ms8yy")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+visible = false
+position = Vector2(2293, 524)
+amount = 100
+texture = ExtResource("2_2ddvu")
+lifetime = 10.0
+preprocess = 10.0
+randomness = 0.35
+emission_shape = 3
+emission_rect_extents = Vector2(1, 600)
+gravity = Vector2(-50, 0)
+angular_velocity_min = 14.05
+angular_velocity_max = 14.05
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="TextureRect" type="ColorRect" parent="CanvasLayer"]
+[node name="SpaceParallax" parent="CanvasLayer" instance=ExtResource("4_nr18t")]
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 1)
+texture = ExtResource("4_8y38f")
+stretch_mode = 1
 
 [node name="marginContainerMenu" type="MarginContainer" parent="CanvasLayer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 160.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_l44du")
@@ -331,16 +366,104 @@ horizontal_alignment = 1
 visible = false
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/marginContainerMenu/containerHowTo"]
 layout_mode = 2
+theme_override_constants/separation = 11
+alignment = 1
 
 [node name="lOptions" type="Label" parent="CanvasLayer/marginContainerMenu/containerHowTo/VBoxContainer"]
 layout_mode = 2
 text = "How To Play"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/marginContainerMenu/containerHowTo/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "You are stranded in space and your mission is to survive for as long as you can."
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="CanvasLayer/marginContainerMenu/containerHowTo/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "use \"W,a,d\" to control your ship and
+use \"space\" to shoot the asteroids and alien ships"
+horizontal_alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/marginContainerMenu/containerHowTo/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/marginContainerMenu/containerHowTo/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture = ExtResource("3_gl3i6")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/marginContainerMenu/containerHowTo/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture = ExtResource("4_2ddvu")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Label3" type="Label" parent="CanvasLayer/marginContainerMenu/containerHowTo/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "There will also be powerups that appear to help you out,
+ pick them up to get an edge."
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/marginContainerMenu/containerHowTo/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/marginContainerMenu/containerHowTo/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture = ExtResource("3_6no0a")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/marginContainerMenu/containerHowTo/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture = ExtResource("4_ms8yy")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="TextureRect3" type="TextureRect" parent="CanvasLayer/marginContainerMenu/containerHowTo/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture = ExtResource("5_gl3i6")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="TextureRect4" type="TextureRect" parent="CanvasLayer/marginContainerMenu/containerHowTo/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture = ExtResource("6_2ddvu")
+expand_mode = 1
+stretch_mode = 4
 
 [node name="bBack" type="Button" parent="CanvasLayer/marginContainerMenu/containerHowTo/VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
 text = "Back"
 
 [node name="containerOptions" type="CenterContainer" parent="CanvasLayer/marginContainerMenu"]
@@ -350,13 +473,54 @@ layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/marginContainerMenu/containerOptions"]
 layout_mode = 2
+theme_override_constants/separation = 20
 
 [node name="lOptions" type="Label" parent="CanvasLayer/marginContainerMenu/containerOptions/VBoxContainer"]
 layout_mode = 2
 text = "Options"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/marginContainerMenu/containerOptions/VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/marginContainerMenu/containerOptions/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Music Volume"
+
+[node name="MusicVal" type="Label" parent="CanvasLayer/marginContainerMenu/containerOptions/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+text = "100"
+horizontal_alignment = 2
+
+[node name="MusicSlider" type="HSlider" parent="CanvasLayer/marginContainerMenu/containerOptions/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(500, 50)
+layout_mode = 2
+value = 100.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/marginContainerMenu/containerOptions/VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/marginContainerMenu/containerOptions/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "SFX Volume"
+
+[node name="SfxVal" type="Label" parent="CanvasLayer/marginContainerMenu/containerOptions/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+text = "100"
+horizontal_alignment = 2
+
+[node name="SfxSlider" type="HSlider" parent="CanvasLayer/marginContainerMenu/containerOptions/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(500, 50)
+layout_mode = 2
+value = 100.0
 
 [node name="bBack" type="Button" parent="CanvasLayer/marginContainerMenu/containerOptions/VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
 text = "Back"
 
 [node name="containerQuit" type="CenterContainer" parent="CanvasLayer/marginContainerMenu"]
@@ -398,6 +562,8 @@ autoplay = "start_anim"
 [connection signal="mouse_entered" from="CanvasLayer/marginContainerMenu/MainMenuContainer/container/VBoxContainer/Control4/bQuit" to="." method="_on_b_quit_mouse_entered"]
 [connection signal="mouse_exited" from="CanvasLayer/marginContainerMenu/MainMenuContainer/container/VBoxContainer/Control4/bQuit" to="." method="_on_b_quit_mouse_exited"]
 [connection signal="button_up" from="CanvasLayer/marginContainerMenu/containerHowTo/VBoxContainer/bBack" to="." method="_on_b_back_button_up"]
+[connection signal="value_changed" from="CanvasLayer/marginContainerMenu/containerOptions/VBoxContainer/HBoxContainer/MusicSlider" to="." method="_on_music_slider_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/marginContainerMenu/containerOptions/VBoxContainer/HBoxContainer2/SfxSlider" to="." method="_on_sfx_slider_value_changed"]
 [connection signal="button_up" from="CanvasLayer/marginContainerMenu/containerOptions/VBoxContainer/bBack" to="." method="_on_b_back_button_up"]
 [connection signal="button_up" from="CanvasLayer/marginContainerMenu/containerQuit/VBoxContainer/bYes" to="." method="_on_b_yes_button_up"]
 [connection signal="button_up" from="CanvasLayer/marginContainerMenu/containerQuit/VBoxContainer/bNo" to="." method="_on_b_no_button_up"]

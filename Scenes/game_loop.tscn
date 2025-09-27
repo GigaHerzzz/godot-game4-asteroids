@@ -1,7 +1,8 @@
-[gd_scene load_steps=25 format=3 uid="uid://cv61gse5n84l0"]
+[gd_scene load_steps=26 format=3 uid="uid://cv61gse5n84l0"]
 
 [ext_resource type="Script" uid="uid://dtpa601swsn3h" path="res://Scripts/Controllers/GameController.gd" id="1_u7gwu"]
 [ext_resource type="Theme" uid="uid://b5pgyyy6mq1f" path="res://Theme/game_theme.tres" id="1_yw6yy"]
+[ext_resource type="PackedScene" uid="uid://c4vvf12f4c6ig" path="res://Scenes/Effects/space_parallax.tscn" id="2_ap4d4"]
 [ext_resource type="Script" uid="uid://cxquyy50cg4pw" path="res://Scripts/Controllers/PlayerController.gd" id="2_o1o31"]
 [ext_resource type="PackedScene" uid="uid://cjppcf382fc4y" path="res://Scenes/UI/touch_controls.tscn" id="3_d4nat"]
 [ext_resource type="PackedScene" uid="uid://0dceyqxji7s4" path="res://Scenes/entities/projectile.tscn" id="4_wb67d"]
@@ -78,7 +79,10 @@ radius = 39.0
 script = ExtResource("1_u7gwu")
 POWERUP_POINT_THRESHOLD = 100
 
+[node name="SpaceParallax" parent="." instance=ExtResource("2_ap4d4")]
+
 [node name="Control2" type="Control" parent="."]
+visible = false
 custom_minimum_size = Vector2(2000, 1600)
 layout_mode = 3
 anchors_preset = 15

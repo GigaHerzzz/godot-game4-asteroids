@@ -1,0 +1,523 @@
+[gd_scene load_steps=5 format=3 uid="uid://c4vvf12f4c6ig"]
+
+[ext_resource type="Texture2D" uid="uid://bqs31pebddhvi" path="res://Assets/Art/Background/darkPurple.png" id="1_qbw84"]
+[ext_resource type="Script" uid="uid://bgyjtecspv1h5" path="res://Scripts/Effect/space_parallax.gd" id="1_u4no6"]
+[ext_resource type="Texture2D" uid="uid://dx0guj1djndlg" path="res://Assets/Art/Particles/star1.png" id="2_liwgg"]
+[ext_resource type="Texture2D" uid="uid://dfog8fr6bcsdl" path="res://Assets/Art/Particles/star2.png" id="3_u4no6"]
+
+[node name="SpaceParallax" type="ParallaxBackground"]
+script = ExtResource("1_u4no6")
+far_offset_speed = 40
+mid_offset_speed = 70
+close_offset_speed = 90
+
+[node name="SpaceLayer" type="ParallaxLayer" parent="."]
+unique_name_in_owner = true
+motion_mirroring = Vector2(1920, 1080)
+
+[node name="TextureRect" type="TextureRect" parent="SpaceLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_qbw84")
+stretch_mode = 1
+
+[node name="FarStarLayer" type="ParallaxLayer" parent="."]
+unique_name_in_owner = true
+motion_mirroring = Vector2(1920, 1080)
+
+[node name="TextureRect" type="TextureRect" parent="FarStarLayer"]
+modulate = Color(1, 1, 1, 0.3)
+offset_left = 114.0
+offset_top = 94.0
+offset_right = 154.0
+offset_bottom = 134.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_liwgg")
+
+[node name="TextureRect2" type="TextureRect" parent="FarStarLayer"]
+modulate = Color(1, 1, 1, 0.3)
+offset_left = 219.0
+offset_top = 209.0
+offset_right = 259.0
+offset_bottom = 249.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_liwgg")
+
+[node name="TextureRect3" type="TextureRect" parent="FarStarLayer"]
+modulate = Color(1, 1, 1, 0.3)
+offset_left = 511.0
+offset_top = 110.0
+offset_right = 551.0
+offset_bottom = 150.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_liwgg")
+
+[node name="TextureRect4" type="TextureRect" parent="FarStarLayer"]
+modulate = Color(1, 1, 1, 0.3)
+offset_left = 389.0
+offset_top = 243.0
+offset_right = 429.0
+offset_bottom = 283.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_liwgg")
+
+[node name="TextureRect5" type="TextureRect" parent="FarStarLayer"]
+modulate = Color(1, 1, 1, 0.3)
+offset_left = 75.0
+offset_top = 369.0
+offset_right = 115.0
+offset_bottom = 409.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_liwgg")
+
+[node name="TextureRect6" type="TextureRect" parent="FarStarLayer"]
+modulate = Color(1, 1, 1, 0.3)
+offset_left = 291.0
+offset_top = 420.0
+offset_right = 331.0
+offset_bottom = 460.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_liwgg")
+
+[node name="TextureRect7" type="TextureRect" parent="FarStarLayer"]
+modulate = Color(1, 1, 1, 0.3)
+offset_left = 727.0
+offset_top = 390.0
+offset_right = 767.0
+offset_bottom = 430.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_liwgg")
+
+[node name="TextureRect8" type="TextureRect" parent="FarStarLayer"]
+modulate = Color(1, 1, 1, 0.3)
+offset_left = 782.0
+offset_top = 110.0
+offset_right = 822.0
+offset_bottom = 150.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_liwgg")
+
+[node name="TextureRect9" type="TextureRect" parent="FarStarLayer"]
+modulate = Color(1, 1, 1, 0.3)
+offset_left = 1034.0
+offset_top = 232.0
+offset_right = 1074.0
+offset_bottom = 272.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_liwgg")
+
+[node name="TextureRect10" type="TextureRect" parent="FarStarLayer"]
+modulate = Color(1, 1, 1, 0.3)
+offset_left = 1296.0
+offset_top = 94.0
+offset_right = 1336.0
+offset_bottom = 134.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_liwgg")
+
+[node name="TextureRect11" type="TextureRect" parent="FarStarLayer"]
+modulate = Color(1, 1, 1, 0.3)
+offset_left = 1278.0
+offset_top = 310.0
+offset_right = 1318.0
+offset_bottom = 350.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_liwgg")
+
+[node name="TextureRect12" type="TextureRect" parent="FarStarLayer"]
+modulate = Color(1, 1, 1, 0.3)
+offset_left = 1528.0
+offset_top = 209.0
+offset_right = 1568.0
+offset_bottom = 249.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_liwgg")
+
+[node name="TextureRect13" type="TextureRect" parent="FarStarLayer"]
+modulate = Color(1, 1, 1, 0.3)
+offset_left = 1771.0
+offset_top = 296.0
+offset_right = 1811.0
+offset_bottom = 336.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_liwgg")
+
+[node name="TextureRect14" type="TextureRect" parent="FarStarLayer"]
+modulate = Color(1, 1, 1, 0.3)
+offset_left = 1546.0
+offset_top = 466.0
+offset_right = 1586.0
+offset_bottom = 506.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_liwgg")
+
+[node name="TextureRect15" type="TextureRect" parent="FarStarLayer"]
+modulate = Color(1, 1, 1, 0.3)
+offset_left = 1734.0
+offset_top = 537.0
+offset_right = 1774.0
+offset_bottom = 577.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_liwgg")
+
+[node name="TextureRect16" type="TextureRect" parent="FarStarLayer"]
+modulate = Color(1, 1, 1, 0.3)
+offset_left = 1635.0
+offset_top = 673.0
+offset_right = 1675.0
+offset_bottom = 713.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_liwgg")
+
+[node name="TextureRect17" type="TextureRect" parent="FarStarLayer"]
+modulate = Color(1, 1, 1, 0.3)
+offset_left = 1754.0
+offset_top = 811.0
+offset_right = 1794.0
+offset_bottom = 851.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_liwgg")
+
+[node name="TextureRect18" type="TextureRect" parent="FarStarLayer"]
+modulate = Color(1, 1, 1, 0.3)
+offset_left = 1362.0
+offset_top = 701.0
+offset_right = 1402.0
+offset_bottom = 741.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_liwgg")
+
+[node name="TextureRect19" type="TextureRect" parent="FarStarLayer"]
+modulate = Color(1, 1, 1, 0.3)
+offset_left = 1256.0
+offset_top = 915.0
+offset_right = 1296.0
+offset_bottom = 955.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_liwgg")
+
+[node name="TextureRect20" type="TextureRect" parent="FarStarLayer"]
+modulate = Color(1, 1, 1, 0.3)
+offset_left = 1183.0
+offset_top = 523.0
+offset_right = 1223.0
+offset_bottom = 563.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_liwgg")
+
+[node name="TextureRect21" type="TextureRect" parent="FarStarLayer"]
+modulate = Color(1, 1, 1, 0.3)
+offset_left = 1068.0
+offset_top = 698.0
+offset_right = 1108.0
+offset_bottom = 738.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_liwgg")
+
+[node name="TextureRect22" type="TextureRect" parent="FarStarLayer"]
+modulate = Color(1, 1, 1, 0.3)
+offset_left = 951.0
+offset_top = 425.0
+offset_right = 991.0
+offset_bottom = 465.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_liwgg")
+
+[node name="TextureRect23" type="TextureRect" parent="FarStarLayer"]
+modulate = Color(1, 1, 1, 0.3)
+offset_left = 531.0
+offset_top = 530.0
+offset_right = 571.0
+offset_bottom = 570.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_liwgg")
+
+[node name="TextureRect24" type="TextureRect" parent="FarStarLayer"]
+modulate = Color(1, 1, 1, 0.3)
+offset_left = 232.0
+offset_top = 608.0
+offset_right = 272.0
+offset_bottom = 648.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_liwgg")
+
+[node name="TextureRect25" type="TextureRect" parent="FarStarLayer"]
+modulate = Color(1, 1, 1, 0.3)
+offset_left = 69.0
+offset_top = 736.0
+offset_right = 109.0
+offset_bottom = 776.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_liwgg")
+
+[node name="TextureRect26" type="TextureRect" parent="FarStarLayer"]
+modulate = Color(1, 1, 1, 0.3)
+offset_left = 227.0
+offset_top = 874.0
+offset_right = 267.0
+offset_bottom = 914.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_liwgg")
+
+[node name="TextureRect27" type="TextureRect" parent="FarStarLayer"]
+modulate = Color(1, 1, 1, 0.3)
+offset_left = 415.0
+offset_top = 727.0
+offset_right = 455.0
+offset_bottom = 767.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_liwgg")
+
+[node name="TextureRect28" type="TextureRect" parent="FarStarLayer"]
+modulate = Color(1, 1, 1, 0.3)
+offset_left = 537.0
+offset_top = 941.0
+offset_right = 577.0
+offset_bottom = 981.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_liwgg")
+
+[node name="TextureRect29" type="TextureRect" parent="FarStarLayer"]
+modulate = Color(1, 1, 1, 0.3)
+offset_left = 716.0
+offset_top = 681.0
+offset_right = 756.0
+offset_bottom = 721.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_liwgg")
+
+[node name="TextureRect30" type="TextureRect" parent="FarStarLayer"]
+modulate = Color(1, 1, 1, 0.3)
+offset_left = 778.0
+offset_top = 917.0
+offset_right = 818.0
+offset_bottom = 957.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_liwgg")
+
+[node name="TextureRect31" type="TextureRect" parent="FarStarLayer"]
+modulate = Color(1, 1, 1, 0.3)
+offset_left = 927.0
+offset_top = 632.0
+offset_right = 967.0
+offset_bottom = 672.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_liwgg")
+
+[node name="TextureRect32" type="TextureRect" parent="FarStarLayer"]
+modulate = Color(1, 1, 1, 0.3)
+offset_left = 927.0
+offset_top = 632.0
+offset_right = 967.0
+offset_bottom = 672.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_liwgg")
+
+[node name="CloseStarLayer" type="ParallaxLayer" parent="."]
+unique_name_in_owner = true
+motion_mirroring = Vector2(1920, 1080)
+
+[node name="TextureRect" type="TextureRect" parent="CloseStarLayer"]
+modulate = Color(1, 1, 1, 0.5)
+offset_left = 354.0
+offset_top = 62.0
+offset_right = 394.0
+offset_bottom = 102.0
+texture = ExtResource("3_u4no6")
+
+[node name="TextureRect2" type="TextureRect" parent="CloseStarLayer"]
+modulate = Color(1, 1, 1, 0.5)
+offset_left = 133.0
+offset_top = 263.0
+offset_right = 173.0
+offset_bottom = 303.0
+texture = ExtResource("3_u4no6")
+
+[node name="TextureRect3" type="TextureRect" parent="CloseStarLayer"]
+modulate = Color(1, 1, 1, 0.5)
+offset_left = 420.0
+offset_top = 355.0
+offset_right = 460.0
+offset_bottom = 395.0
+texture = ExtResource("3_u4no6")
+
+[node name="TextureRect4" type="TextureRect" parent="CloseStarLayer"]
+modulate = Color(1, 1, 1, 0.5)
+offset_left = 120.0
+offset_top = 492.0
+offset_right = 160.0
+offset_bottom = 532.0
+texture = ExtResource("3_u4no6")
+
+[node name="TextureRect5" type="TextureRect" parent="CloseStarLayer"]
+modulate = Color(1, 1, 1, 0.5)
+offset_left = 191.0
+offset_top = 734.0
+offset_right = 231.0
+offset_bottom = 774.0
+texture = ExtResource("3_u4no6")
+
+[node name="TextureRect6" type="TextureRect" parent="CloseStarLayer"]
+modulate = Color(1, 1, 1, 0.5)
+offset_left = 688.0
+offset_top = 560.0
+offset_right = 728.0
+offset_bottom = 600.0
+texture = ExtResource("3_u4no6")
+
+[node name="TextureRect7" type="TextureRect" parent="CloseStarLayer"]
+modulate = Color(1, 1, 1, 0.5)
+offset_left = 557.0
+offset_top = 826.0
+offset_right = 597.0
+offset_bottom = 866.0
+texture = ExtResource("3_u4no6")
+
+[node name="TextureRect8" type="TextureRect" parent="CloseStarLayer"]
+modulate = Color(1, 1, 1, 0.5)
+offset_left = 962.0
+offset_top = 933.0
+offset_right = 1002.0
+offset_bottom = 973.0
+texture = ExtResource("3_u4no6")
+
+[node name="TextureRect9" type="TextureRect" parent="CloseStarLayer"]
+modulate = Color(1, 1, 1, 0.5)
+offset_left = 96.0
+offset_top = 989.0
+offset_right = 136.0
+offset_bottom = 1029.0
+texture = ExtResource("3_u4no6")
+
+[node name="TextureRect10" type="TextureRect" parent="CloseStarLayer"]
+modulate = Color(1, 1, 1, 0.5)
+offset_left = 1646.0
+offset_top = 1017.0
+offset_right = 1686.0
+offset_bottom = 1057.0
+texture = ExtResource("3_u4no6")
+
+[node name="TextureRect11" type="TextureRect" parent="CloseStarLayer"]
+modulate = Color(1, 1, 1, 0.5)
+offset_left = 1505.0
+offset_top = 790.0
+offset_right = 1545.0
+offset_bottom = 830.0
+texture = ExtResource("3_u4no6")
+
+[node name="TextureRect12" type="TextureRect" parent="CloseStarLayer"]
+modulate = Color(1, 1, 1, 0.5)
+offset_left = 1162.0
+offset_top = 668.0
+offset_right = 1202.0
+offset_bottom = 708.0
+texture = ExtResource("3_u4no6")
+
+[node name="TextureRect13" type="TextureRect" parent="CloseStarLayer"]
+modulate = Color(1, 1, 1, 0.5)
+offset_left = 1571.0
+offset_top = 554.0
+offset_right = 1611.0
+offset_bottom = 594.0
+texture = ExtResource("3_u4no6")
+
+[node name="TextureRect14" type="TextureRect" parent="CloseStarLayer"]
+modulate = Color(1, 1, 1, 0.5)
+offset_left = 1382.0
+offset_top = 160.0
+offset_right = 1422.0
+offset_bottom = 200.0
+texture = ExtResource("3_u4no6")
+
+[node name="TextureRect15" type="TextureRect" parent="CloseStarLayer"]
+modulate = Color(1, 1, 1, 0.5)
+offset_left = 1847.0
+offset_top = 29.0
+offset_right = 1887.0
+offset_bottom = 69.0
+texture = ExtResource("3_u4no6")
+
+[node name="TextureRect16" type="TextureRect" parent="CloseStarLayer"]
+modulate = Color(1, 1, 1, 0.5)
+offset_left = 987.0
+offset_top = 87.0
+offset_right = 1027.0
+offset_bottom = 127.0
+texture = ExtResource("3_u4no6")
+
+[node name="TextureRect17" type="TextureRect" parent="CloseStarLayer"]
+modulate = Color(1, 1, 1, 0.5)
+offset_left = 612.0
+offset_top = 241.0
+offset_right = 652.0
+offset_bottom = 281.0
+texture = ExtResource("3_u4no6")
+
+[node name="TextureRect18" type="TextureRect" parent="CloseStarLayer"]
+modulate = Color(1, 1, 1, 0.5)
+offset_left = 1126.0
+offset_top = 348.0
+offset_right = 1166.0
+offset_bottom = 388.0
+texture = ExtResource("3_u4no6")
+
+[node name="TextureRect19" type="TextureRect" parent="CloseStarLayer"]
+modulate = Color(1, 1, 1, 0.5)
+offset_left = 1443.0
+offset_top = 543.0
+offset_right = 1483.0
+offset_bottom = 583.0
+texture = ExtResource("3_u4no6")
+
+[node name="TextureRect20" type="TextureRect" parent="CloseStarLayer"]
+modulate = Color(1, 1, 1, 0.5)
+offset_left = 1572.0
+offset_top = 359.0
+offset_right = 1612.0
+offset_bottom = 399.0
+texture = ExtResource("3_u4no6")
+
+[node name="TextureRect21" type="TextureRect" parent="CloseStarLayer"]
+modulate = Color(1, 1, 1, 0.5)
+offset_left = 1823.0
+offset_top = 730.0
+offset_right = 1863.0
+offset_bottom = 770.0
+texture = ExtResource("3_u4no6")
+
+[node name="TextureRect22" type="TextureRect" parent="CloseStarLayer"]
+modulate = Color(1, 1, 1, 0.5)
+offset_left = 865.0
+offset_top = 743.0
+offset_right = 905.0
+offset_bottom = 783.0
+texture = ExtResource("3_u4no6")
+
+[node name="TextureRect23" type="TextureRect" parent="CloseStarLayer"]
+modulate = Color(1, 1, 1, 0.5)
+offset_left = 837.0
+offset_top = 250.0
+offset_right = 877.0
+offset_bottom = 290.0
+texture = ExtResource("3_u4no6")
+
+[node name="TextureRect24" type="TextureRect" parent="CloseStarLayer"]
+modulate = Color(1, 1, 1, 0.5)
+offset_left = 435.0
+offset_top = 554.0
+offset_right = 475.0
+offset_bottom = 594.0
+texture = ExtResource("3_u4no6")
+
+[node name="TextureRect25" type="TextureRect" parent="CloseStarLayer"]
+modulate = Color(1, 1, 1, 0.5)
+offset_left = 435.0
+offset_top = 554.0
+offset_right = 475.0
+offset_bottom = 594.0
+texture = ExtResource("3_u4no6")

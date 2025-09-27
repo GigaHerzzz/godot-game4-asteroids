@@ -3,6 +3,8 @@ var high_score: int = 0
 
 enum State {MENU, PREPARE, PLAYING, PAUSED, GAME_OVER}
 var current_state: int = State.PREPARE
+var music_volume: int = 100
+var sfx_volume: int = 100
 
 var DEBUG_MODE: bool = true 
 
@@ -19,7 +21,7 @@ func get_asteroid(loc: int) -> Variant:
 #Saves the game data to device
 func save_game():
 	var save_file = FileAccess.open("user://savegame.save", FileAccess.WRITE)
-	var save_data = save_data()
+	var save_data = create_save_data()
 	var json_string = JSON.stringify(save_data)
 	save_file.store_line(json_string)
 
@@ -43,10 +45,14 @@ func load_game():
 		# Get the data from the JSON object.
 		var node_data = json.data
 		high_score = node_data["high_score"]
+		music_volume = node_data["music_vol"]
+		sfx_volume = node_data["sfx_vol"]
 	
 #Creates the data in a structure ready to save it
-func save_data():
+func create_save_data():
 	var save_dict ={
-		"high_score" : high_score
+		"high_score" : high_score,
+		"music_vol" : music_volume,
+		"sfx_vol" : sfx_volume
 	}
 	return save_dict

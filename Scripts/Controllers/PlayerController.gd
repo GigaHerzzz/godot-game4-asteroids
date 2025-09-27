@@ -4,9 +4,9 @@ class_name PlayerController
 
 enum shooting_mode {Single, Dobule, Triple}
 
-@export var acceleration: int = 20
+@export var acceleration: float = 20
 @export var drag: int = 10
-@export var max_acceleration: int = 400
+@export var max_acceleration: float = 400
 @export var current_acceleration: float = 0
 @export var respawn_position: Vector2 = Vector2(0,0)
 @export var respawn_time: int = 3
@@ -27,10 +27,13 @@ enum shooting_mode {Single, Dobule, Triple}
 @export var shield_time: int = 30
 @export var gun_time: int = 30
 
+var spacePrx: SpaceParallax
+
 signal add_life
 
 func _ready() -> void:
 	#EventBus.player_hit.connect(got_hit)
+	spacePrx = get_parent().find_child("SpaceParallax")
 	EventBus.game_over.connect(game_over)
 
 func _process(delta: float) -> void:
@@ -52,6 +55,10 @@ func _physics_process(delta: float) -> void:
 			rotate(deg_to_rad(rotation_acc*delta))
 
 		velocity += Vector2(0, current_acceleration * delta).rotated(rotation_degrees)
+		if(spacePrx != null):
+			spacePrx.set_move_angle(velocity.angle())
+			var acc_factor = velocity.length()/max_acceleration
+			spacePrx.set_acc_factor(acc_factor)
 		move_and_slide()
 		
 		check_for_wrapping()

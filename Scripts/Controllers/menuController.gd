@@ -12,7 +12,11 @@ extends Node2D
 
 func _ready() -> void:
 	Globals.load_game()
-	#tween_main_menu_appears()
+	$CanvasLayer/marginContainerMenu/containerOptions/VBoxContainer/HBoxContainer/MusicSlider.value = Globals.music_volume
+	$CanvasLayer/marginContainerMenu/containerOptions/VBoxContainer/HBoxContainer2/SfxSlider.value = Globals.sfx_volume
+	$CanvasLayer/marginContainerMenu/containerOptions/VBoxContainer/HBoxContainer/MusicVal.text = str(int(Globals.music_volume))
+	$CanvasLayer/marginContainerMenu/containerOptions/VBoxContainer/HBoxContainer2/SfxVal.text	= str(int(Globals.sfx_volume))
+#tween_main_menu_appears()
 	#TweenBus.tween_button.connect(tween_menu_element_scale)
 	#Skip to the game, maybe make a debug window and use this
 	#if(Globals.current_state == Globals.State.PREPARE):
@@ -80,6 +84,7 @@ func _on_b_back_button_up() -> void:
 		visible_menu = c_how_to
 	else:
 		visible_menu = c_options
+		Globals.save_game()
 	
 	tween_menu_fade_out(visible_menu, Vector2(-50,0))
 	await get_tree().create_timer(transition_time).timeout
@@ -134,3 +139,11 @@ func _on_b_quit_mouse_entered() -> void:
 
 func _on_b_quit_mouse_exited() -> void:
 	tween_menu_element_scale($CanvasLayer/marginContainerMenu/MainMenuContainer/container/VBoxContainer/Control4/bQuit, "scale", Vector2(1.0,1.0),0.1)
+
+func _on_sfx_slider_value_changed(value:float) -> void:
+	$CanvasLayer/marginContainerMenu/containerOptions/VBoxContainer/HBoxContainer2/SfxVal.text = str(int(value))
+	Globals.sfx_volume = int(value)
+
+func _on_music_slider_value_changed(value:float) -> void:
+	$CanvasLayer/marginContainerMenu/containerOptions/VBoxContainer/HBoxContainer/MusicVal.text = str(int(value))
+	Globals.music_volume = int(value)
