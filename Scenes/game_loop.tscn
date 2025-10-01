@@ -20,21 +20,6 @@
 [ext_resource type="Texture2D" uid="uid://ccm8gt50x5055" path="res://Assets/Art/Entities/PlayerDamage/player_ship_piece_3.png" id="15_q1kh6"]
 [ext_resource type="Texture2D" uid="uid://dp2b08ybkfyxh" path="res://Assets/Art/Entities/PlayerDamage/player_ship_piece_4.png" id="16_prds5"]
 
-[sub_resource type="Animation" id="Animation_iishx"]
-resource_name = "fadeInTransition"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CanvasLayer/TransitionRect:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
-}
-
 [sub_resource type="Animation" id="Animation_y34kh"]
 length = 0.001
 tracks/0/type = "value"
@@ -48,6 +33,45 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(0, 0, 0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/contGameOverlay/VBoxContainer/lUpgrade:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CanvasLayer/contGameOverlay/VBoxContainer/lUpgrade:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 88)]
+}
+
+[sub_resource type="Animation" id="Animation_iishx"]
+resource_name = "fadeInTransition"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/TransitionRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_q1kh6"]
@@ -217,6 +241,13 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "High Score:"
 
+[node name="lUpgrade" type="Label" parent="CanvasLayer/contGameOverlay/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 80
+horizontal_alignment = 1
+
 [node name="contDebug" type="MarginContainer" parent="CanvasLayer"]
 visible = false
 anchors_preset = 15
@@ -251,16 +282,17 @@ text = "Player_forward_velocity:"
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 8.0
-offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_yw6yy")
 
-[node name="Label" type="Label" parent="CanvasLayer/contReady"]
+[node name="lReady" type="Label" parent="CanvasLayer/contReady"]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 2
-theme_override_font_sizes/font_size = 60
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 100
 text = "READY"
+horizontal_alignment = 1
 
 [node name="contGameOver" type="CenterContainer" parent="CanvasLayer"]
 visible = false
@@ -407,6 +439,7 @@ text = "Back
 "
 
 [node name="TransitionRect" type="ColorRect" parent="CanvasLayer"]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -424,7 +457,7 @@ offset_bottom = 40.0
 visible = false
 
 [node name="Player" type="CharacterBody2D" parent="."]
-position = Vector2(980, 517)
+position = Vector2(960, 540)
 collision_mask = 0
 motion_mode = 1
 script = ExtResource("2_o1o31")

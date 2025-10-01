@@ -46,6 +46,7 @@ func prepare_game():
 	EventBus.player_hit.connect(player_hit)
 	EventBus.add_points.connect(add_points)
 	EventBus.spawn_explosion.connect(add_effect)
+	EventBus.show_upgrade_pickup.connect(tween_label_upgrade)
 	
 func _ready() -> void:
 	prepare_game()
@@ -140,6 +141,30 @@ func toggle_quit(show_quit: bool) -> void:
 func update_lives_ui():
 	lives_label.text = "Lives: %d" % player_lives
 	
+#TWEENS
+func tween_ready_fade_in():
+	var label_ready : Label = $CanvasLayer/contReady/lReady
+	var tween = get_tree().create_tween()
+	tween.tween_property(label_ready, "position", label_ready.global_position ,0.5).from(Vector2(label_ready.global_position.x - 30, label_ready.global_position.y))
+	tween.parallel().tween_property(label_ready, "modulate:a", 1 ,0.5).from(0)
+	tween.tween_interval(2)
+	tween.tween_callback(tween_ready_fade_out)
+
+func tween_ready_fade_out():
+	var label_ready : Label = $CanvasLayer/contReady/lReady
+	var tween = get_tree().create_tween()
+	#tween.tween_property(label_ready, "position", label_ready.global_position ,1).from(Vector2(label_ready.global_position.x - 30, label_ready.global_position.y))
+	tween.tween_property(label_ready, "modulate:a", 0 ,0.5).from(1)
+	
+func tween_label_upgrade(upgrade_text: String):
+	var label_upgrade: Label = $CanvasLayer/contGameOverlay/VBoxContainer/lUpgrade
+	label_upgrade.text = upgrade_text
+	var tween = get_tree().create_tween()
+	tween.tween_property(label_upgrade,"position", label_upgrade.global_position, 0.5).from(Vector2(label_upgrade.global_position.x, label_upgrade.global_position.y - 50))
+	tween.parallel().tween_property(label_upgrade, "modulate:a", 1 ,0.5).from(0)
+	tween.tween_interval(1)
+	tween.tween_property(label_upgrade, "modulate:a", 0 ,0.5)
+
 func _on_b_resume_button_up() -> void:
 	toggle_paused()
 
@@ -181,5 +206,6 @@ func _on_game_anim_player_animation_finished(anim_name:StringName) -> void:
 	if(anim_name == "fadeInTransition"):
 		$CanvasLayer/TransitionRect.visible = false
 		timer_ready.start(ready_time)
+		tween_ready_fade_in()
 	if(anim_name == "fadeOutTransition"):
 		get_tree().reload_current_scene()

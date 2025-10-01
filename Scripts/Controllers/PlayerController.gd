@@ -208,15 +208,19 @@ func add_power_up(type: int):
 			is_shielded = true
 			$SpriteShield.visible = true
 			$TimerShield.start(shield_time)
+			EventBus.show_upgrade_pickup.emit("Aquired Shield!")
 		PowerUp.type.Double_shot:
 			$TimerGunMode.start(gun_time)
+			EventBus.show_upgrade_pickup.emit("Aquired double shot!")
 			if(gun <= shooting_mode.Dobule):
 				gun = shooting_mode.Dobule
 		PowerUp.type.Triple_shot:
 			$TimerGunMode.start(gun_time)
+			EventBus.show_upgrade_pickup.emit("Aquired triple shot!")
 			gun = shooting_mode.Triple
 		PowerUp.type.Extra_life:
 			add_life.emit()
+			EventBus.show_upgrade_pickup.emit("Aquired extra life!")
 			$HealthComponent.add_health(healing_amount)
 			
 
