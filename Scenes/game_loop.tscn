@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://cv61gse5n84l0"]
+[gd_scene load_steps=33 format=3 uid="uid://cv61gse5n84l0"]
 
 [ext_resource type="Script" uid="uid://dtpa601swsn3h" path="res://Scripts/Controllers/GameController.gd" id="1_u7gwu"]
 [ext_resource type="Theme" uid="uid://b5pgyyy6mq1f" path="res://Theme/game_theme.tres" id="1_yw6yy"]
@@ -15,7 +15,62 @@
 [ext_resource type="PackedScene" uid="uid://ckpdi6jwtuxe" path="res://Scenes/Components/grab_component.tscn" id="8_qd7mf"]
 [ext_resource type="Script" uid="uid://dvt6ntdqb0nlt" path="res://Scripts/Spawner/enemy_spawner.gd" id="8_tf7tj"]
 [ext_resource type="Script" uid="uid://cd1hbjn6hit5g" path="res://Scripts/Effect/Trail.gd" id="11_o1s6i"]
-[ext_resource type="PackedScene" uid="uid://b2rinw3emyeqv" path="res://Scenes/Effects/effect_explosion.tscn" id="14_jap2v"]
+[ext_resource type="Texture2D" uid="uid://dtu2o5q640t6" path="res://Assets/Art/Entities/PlayerDamage/player_ship_piece_1.png" id="13_iishx"]
+[ext_resource type="Texture2D" uid="uid://creis8o7kcbll" path="res://Assets/Art/Entities/PlayerDamage/player_ship_piece_2.png" id="14_y34kh"]
+[ext_resource type="Texture2D" uid="uid://ccm8gt50x5055" path="res://Assets/Art/Entities/PlayerDamage/player_ship_piece_3.png" id="15_q1kh6"]
+[ext_resource type="Texture2D" uid="uid://dp2b08ybkfyxh" path="res://Assets/Art/Entities/PlayerDamage/player_ship_piece_4.png" id="16_prds5"]
+
+[sub_resource type="Animation" id="Animation_iishx"]
+resource_name = "fadeInTransition"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/TransitionRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_y34kh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/TransitionRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_q1kh6"]
+resource_name = "fadeOutTransition"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/TransitionRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_q1kh6"]
+_data = {
+&"RESET": SubResource("Animation_y34kh"),
+&"fadeInTransition": SubResource("Animation_iishx"),
+&"fadeOutTransition": SubResource("Animation_q1kh6")
+}
 
 [sub_resource type="Environment" id="Environment_d4nat"]
 background_mode = 3
@@ -80,6 +135,12 @@ script = ExtResource("1_u7gwu")
 POWERUP_POINT_THRESHOLD = 100
 
 [node name="SpaceParallax" parent="." instance=ExtResource("2_ap4d4")]
+
+[node name="GameAnimPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_q1kh6")
+}
+autoplay = "fadeInTransition"
 
 [node name="Control2" type="Control" parent="."]
 visible = false
@@ -345,6 +406,14 @@ size_flags_vertical = 4
 text = "Back
 "
 
+[node name="TransitionRect" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
@@ -427,6 +496,29 @@ collision_mask = 8
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player/GrabComponent"]
 shape = SubResource("CircleShape2D_qd7mf")
 
+[node name="ShipParts" type="Node2D" parent="Player"]
+visible = false
+
+[node name="part1" type="Sprite2D" parent="Player/ShipParts"]
+position = Vector2(0, 29)
+rotation = 3.14159
+texture = ExtResource("13_iishx")
+
+[node name="part2" type="Sprite2D" parent="Player/ShipParts"]
+position = Vector2(34, -8)
+rotation = -3.14159
+texture = ExtResource("14_y34kh")
+
+[node name="part3" type="Sprite2D" parent="Player/ShipParts"]
+position = Vector2(2, -20)
+rotation = 3.14159
+texture = ExtResource("15_q1kh6")
+
+[node name="part4" type="Sprite2D" parent="Player/ShipParts"]
+position = Vector2(-33, -9)
+rotation = -3.14159
+texture = ExtResource("16_prds5")
+
 [node name="AsteroidSpawner" type="Node2D" parent="."]
 position = Vector2(5, 1152)
 script = ExtResource("7_ed4u3")
@@ -461,9 +553,8 @@ script = ExtResource("7_af5am")
 [node name="EnemySpawner" type="Node2D" parent="."]
 script = ExtResource("8_tf7tj")
 
-[node name="EffectExplosion" parent="." instance=ExtResource("14_jap2v")]
-
 [connection signal="play_game" from="." to="Player" method="_on_game_loop_play_game"]
+[connection signal="animation_finished" from="GameAnimPlayer" to="." method="_on_game_anim_player_animation_finished"]
 [connection signal="timeout" from="TimerReady" to="." method="_on_timer_ready_timeout"]
 [connection signal="button_up" from="CanvasLayer/contGameOver/VBoxContainer/BRestartGame" to="." method="_on_b_restart_game_button_up"]
 [connection signal="button_up" from="CanvasLayer/contGameOver/VBoxContainer/BQuitToMenu" to="." method="_on_b_quit_to_menu_button_up"]

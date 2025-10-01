@@ -43,7 +43,9 @@ func tween_main_menu_appears():
 	begin_tween.tween_property(margin_container_menu,"modulate", Color(1,1,1,1), main_transition_time)
 
 func _on_b_play_button_up() -> void:
-	get_tree().change_scene_to_file("res://Scenes/game_loop.tscn")
+	$CanvasLayer/ColorRect.visible = true
+	$AnimationPlayer.play("transition")
+	#get_tree().change_scene_to_file("res://Scenes/game_loop.tscn")
 
 
 func _on_b_how_to_button_up() -> void:
@@ -147,3 +149,7 @@ func _on_sfx_slider_value_changed(value:float) -> void:
 func _on_music_slider_value_changed(value:float) -> void:
 	$CanvasLayer/marginContainerMenu/containerOptions/VBoxContainer/HBoxContainer/MusicVal.text = str(int(value))
 	Globals.music_volume = int(value)
+
+func _on_animation_player_animation_finished(anim_name:StringName) -> void:
+	if(anim_name == "transition"):
+		get_tree().change_scene_to_file("res://Scenes/game_loop.tscn")

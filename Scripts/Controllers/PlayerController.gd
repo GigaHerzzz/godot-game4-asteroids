@@ -27,6 +27,11 @@ enum shooting_mode {Single, Dobule, Triple}
 @export var shield_time: int = 30
 @export var gun_time: int = 30
 
+var ship_part1_start_pos
+var ship_part2_start_pos
+var ship_part3_start_pos
+var ship_part4_start_pos
+
 var spacePrx: SpaceParallax
 
 signal add_life
@@ -35,6 +40,11 @@ func _ready() -> void:
 	#EventBus.player_hit.connect(got_hit)
 	spacePrx = get_parent().find_child("SpaceParallax")
 	EventBus.game_over.connect(game_over)
+	
+	ship_part1_start_pos = $ShipParts/part1.position
+	ship_part2_start_pos = $ShipParts/part2.position
+	ship_part3_start_pos = $ShipParts/part3.position
+	ship_part4_start_pos = $ShipParts/part4.position
 
 func _process(delta: float) -> void:
 	if(Globals.current_state == Globals.State.PLAYING):
@@ -128,15 +138,53 @@ func got_hit() -> void:
 	$TimerGunMode.stop()
 	gun = shooting_mode.Single
 	velocity = Vector2.ZERO
+	effect_explode()
+	
+func reset_position():
 	visible = false
+	$Sprite2D.visible = true
+	$ShipParts.visible = false
 	global_position = respawn_position
 	$TimerRespawn.start(respawn_time)
+
+
+func effect_explode():
+	$Sprite2D.visible = false
+	$ShipParts.visible = true
+	
+	var tween1 = get_tree().create_tween()
+	var tween2 = get_tree().create_tween()
+	var tween3 = get_tree().create_tween()
+	var tween4 = get_tree().create_tween()
+
+	tween2.tween_property($ShipParts/part2, "position", Vector2(ship_part2_start_pos.x -20, ship_part2_start_pos.y - 20), 3).from(ship_part2_start_pos)
+	tween2.parallel().tween_property($ShipParts/part2, "rotation", deg_to_rad(90), 3).from(deg_to_rad(180))
+	tween2.parallel().tween_property($ShipParts/part2, "modulate:a", 0, 1).from(1).set_delay(2)
+
+	tween3.tween_property($ShipParts/part3, "position", Vector2(ship_part3_start_pos.x +20, ship_part3_start_pos.y - 40), 3).from(ship_part3_start_pos)
+	tween3.parallel().tween_property($ShipParts/part3, "rotation", deg_to_rad(-60), 3).from(deg_to_rad(180))
+	tween3.parallel().tween_property($ShipParts/part3, "modulate:a", 0, 1).from(1).set_delay(2)
+
+	tween4.tween_property($ShipParts/part4, "position", Vector2(ship_part4_start_pos.x -20, ship_part4_start_pos.y + 30), 3).from(ship_part4_start_pos)
+	tween4.parallel().tween_property($ShipParts/part4, "rotation", deg_to_rad(45), 3).from(deg_to_rad(180))
+	tween4.parallel().tween_property($ShipParts/part4, "modulate:a", 0, 1).from(1).set_delay(2)
+
+	tween1.tween_property($ShipParts/part1, "position", Vector2(ship_part1_start_pos.x +20, ship_part1_start_pos.y + 20), 3).from(ship_part1_start_pos)
+	tween1.parallel().tween_property($ShipParts/part1, "rotation", deg_to_rad(60), 3).from(deg_to_rad(180))
+	tween1.parallel().tween_property($ShipParts/part1, "modulate:a", 0, 1).from(1).set_delay(2)
+	tween1.tween_callback(reset_position)
 	
 
 func _on_timer_respawn_timeout() -> void:
 	visible = true
 	$AnimationPlayer.play("respawn")
 	can_move = true
+
+	$ShipParts/part1.modulate.a = 1
+	$ShipParts/part2.modulate.a = 1
+	$ShipParts/part3.modulate.a = 1
+	$ShipParts/part4.modulate.a = 1
+	
 	$TimerImunity.start(imunity_time)
 
 

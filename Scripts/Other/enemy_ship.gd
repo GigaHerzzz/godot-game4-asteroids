@@ -33,12 +33,41 @@ func shoot():
 	get_tree().root.get_child(1).add_child(proj)
 	proj.transform = $EnemyCursor.global_transform
 
+func effect_explode():
+	$Sprite2D.visible = false
+	$ExplosionParts.visible = true
+
+	var tween1 = get_tree().create_tween()
+	var tween2 = get_tree().create_tween()
+	var tween3 = get_tree().create_tween()
+	var tween4 = get_tree().create_tween()
+
+	tween2.tween_property($ExplosionParts/ship2, "position", Vector2(-20, -20), 3)
+	tween2.parallel().tween_property($ExplosionParts/ship2, "rotation", deg_to_rad(90), 3)
+	tween2.parallel().tween_property($ExplosionParts/ship2, "modulate:a", 0, 1).set_delay(2)
+
+	tween3.tween_property($ExplosionParts/ship3, "position", Vector2(+20, -40), 3)
+	tween3.parallel().tween_property($ExplosionParts/ship3, "rotation", deg_to_rad(-60), 3)
+	tween3.parallel().tween_property($ExplosionParts/ship3, "modulate:a", 0, 1).set_delay(2)
+
+	tween4.tween_property($ExplosionParts/ship4, "position", Vector2(-20, +30), 3)
+	tween4.parallel().tween_property($ExplosionParts/ship4, "rotation", deg_to_rad(45), 3)
+	tween4.parallel().tween_property($ExplosionParts/ship4, "modulate:a", 0, 1).set_delay(2)
+
+	tween1.tween_property($ExplosionParts/ship1, "position", Vector2(20, 20), 3)
+	tween1.parallel().tween_property($ExplosionParts/ship1, "rotation", deg_to_rad(60), 3)
+	tween1.parallel().tween_property($ExplosionParts/ship1, "modulate:a", 0, 1).set_delay(2)
+	tween1.tween_callback(queue_free)
+
 func _on_timer_shoot_cooldown_timeout() -> void:
 	shoot()
 	$TimerShootCooldown.start(shoot_cooldown)
 	
 func _on_health_component_died() -> void:
-	queue_free()
+	$TimerShootCooldown.stop()
+	effect_explode()
+	#$Sprite2D.visible = false
+	#queue_free()
 
 func _on_health_component_hurt() -> void:
 	#TODO: flash sprite or something

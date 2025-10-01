@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://de0q8yvdfkbgq" path="res://Scripts/Anim/anim_ship_explode.gd" id="1_c5jax"]
 [ext_resource type="Texture2D" uid="uid://cpfah3hxgdurb" path="res://Assets/Art/Entities/EnemyDamage/enemy_ship_piece_1.png" id="2_c5jax"]
+[ext_resource type="Animation" uid="uid://3651kfyte0ug" path="res://Assets/Anim/ship_explode.res" id="2_lp252"]
 [ext_resource type="Texture2D" uid="uid://ciocchkvrgg86" path="res://Assets/Art/Entities/EnemyDamage/enemy_ship_piece_3.png" id="3_lp252"]
 [ext_resource type="Texture2D" uid="uid://dycq4gkl3puhi" path="res://Assets/Art/Entities/EnemyDamage/enemy_ship_piece_2.png" id="4_wedln"]
 [ext_resource type="Texture2D" uid="uid://u1r6lr44v80c" path="res://Assets/Art/Entities/EnemyDamage/enemy_ship_piece_4.png" id="5_v4vbq"]
@@ -153,181 +154,35 @@ tracks/11/keys = {
 "values": [0.0]
 }
 
-[sub_resource type="Animation" id="Animation_kx366"]
-resource_name = "ship_explode"
-length = 3.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("ship1:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(2, 3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("ship2:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(2, 3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("ship3:modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(2, 3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("ship4:modulate")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(2, 3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("ship1:position")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(16.985, -40)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("ship1:rotation")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0, 3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, 0.925025]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("ship2:position")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0, 3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(-41, 23), Vector2(-83.83, 4.115)]
-}
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("ship2:rotation")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"times": PackedFloat32Array(0, 3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, 1.17461]
-}
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("ship3:position")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
-"times": PackedFloat32Array(0, 3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, 43), Vector2(-33.86, 82.85)]
-}
-tracks/9/type = "value"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("ship3:rotation")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
-"times": PackedFloat32Array(0, 3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, 2.70177]
-}
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("ship4:position")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
-"times": PackedFloat32Array(0, 3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(39, 21), Vector2(86.79, 46.14)]
-}
-tracks/11/type = "value"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("ship4:rotation")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
-"times": PackedFloat32Array(0, 3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, -2.99498]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0t1n2"]
 _data = {
 &"RESET": SubResource("Animation_scwke"),
-&"ship_explode": SubResource("Animation_kx366")
+&"ship_explode": ExtResource("2_lp252")
 }
 
-[node name="AnimShipExplode" type="AnimationPlayer"]
+[node name="AnimEnemyExplode" type="Node2D"]
+script = ExtResource("1_c5jax")
+
+[node name="AnimShipExplode" type="AnimationPlayer" parent="."]
 root_node = NodePath(".")
 libraries = {
 &"": SubResource("AnimationLibrary_0t1n2")
 }
 autoplay = "ship_explode"
-script = ExtResource("1_c5jax")
 
-[node name="ship1" type="Sprite2D" parent="."]
+[node name="ship1" type="Sprite2D" parent="AnimShipExplode"]
 texture = ExtResource("2_c5jax")
 
-[node name="ship2" type="Sprite2D" parent="."]
+[node name="ship2" type="Sprite2D" parent="AnimShipExplode"]
 position = Vector2(-41, 23)
 texture = ExtResource("3_lp252")
 
-[node name="ship3" type="Sprite2D" parent="."]
+[node name="ship3" type="Sprite2D" parent="AnimShipExplode"]
 position = Vector2(0, 43)
 texture = ExtResource("4_wedln")
 
-[node name="ship4" type="Sprite2D" parent="."]
+[node name="ship4" type="Sprite2D" parent="AnimShipExplode"]
 position = Vector2(39, 21)
 texture = ExtResource("5_v4vbq")
 
-[connection signal="animation_finished" from="." to="." method="_on_animation_finished"]
+[connection signal="animation_finished" from="AnimShipExplode" to="." method="_on_anim_ship_explode_animation_finished"]

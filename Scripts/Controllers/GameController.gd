@@ -19,6 +19,8 @@ class_name GameController
 @onready var l_game_over_hi_score := $CanvasLayer/contGameOver/VBoxContainer/HBoxContainer/LabelHiScore
 
 @onready var effect_explosion: PackedScene = preload("res://Scenes/Effects/effect_explosion.tscn")
+@onready var anim_player_die: PackedScene = preload("res://Scenes/Effects/anim_player_ship_explode.tscn")
+@onready var anim_enemy_die: PackedScene = preload("res://Scenes/Effects/anim_enemy_ship_explode.tscn")
 
 @onready var timer_ready := $TimerReady
 
@@ -40,7 +42,6 @@ func prepare_game():
 	score = 0
 	update_score_ui(true)
 	update_lives_ui()
-	timer_ready.start(ready_time)
 	player_lives = PLAYER_STARTING_LIVES
 	EventBus.player_hit.connect(player_hit)
 	EventBus.add_points.connect(add_points)
@@ -156,11 +157,15 @@ func _on_b_back_to_pause_button_up() -> void:
 
 
 func _on_b_restart_button_up() -> void:
-	get_tree().reload_current_scene()
+	$CanvasLayer/TransitionRect.visible = true
+	$GameAnimPlayer.play("fadeOutTransition")
+	#get_tree().reload_current_scene()
 
 
 func _on_b_restart_game_button_up() -> void:
-	get_tree().reload_current_scene()
+	$CanvasLayer/TransitionRect.visible = true
+	$GameAnimPlayer.play("fadeOutTransition")
+	#get_tree().reload_current_scene()
 
 
 func _on_b_quit_to_menu_button_up() -> void:
@@ -170,3 +175,11 @@ func _on_b_quit_to_menu_button_up() -> void:
 func _on_player_add_life() -> void:
 	player_lives += 1
 	update_lives_ui()
+
+
+func _on_game_anim_player_animation_finished(anim_name:StringName) -> void:
+	if(anim_name == "fadeInTransition"):
+		$CanvasLayer/TransitionRect.visible = false
+		timer_ready.start(ready_time)
+	if(anim_name == "fadeOutTransition"):
+		get_tree().reload_current_scene()
