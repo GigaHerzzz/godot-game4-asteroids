@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b1mblngwj8i8m"]
+
+[ext_resource type="Script" uid="uid://djiq5m1s038o1" path="res://Scripts/Components/HitMarkerComponent.gd" id="1_k6gem"]
+
+[node name="HitMarkerComponent" type="Node2D"]
+script = ExtResource("1_k6gem")

@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://c4vvf12f4c6ig"]
 
-[ext_resource type="Texture2D" uid="uid://bqs31pebddhvi" path="res://Assets/Art/Background/darkPurple.png" id="1_qbw84"]
 [ext_resource type="Script" uid="uid://bgyjtecspv1h5" path="res://Scripts/Effect/space_parallax.gd" id="1_u4no6"]
 [ext_resource type="Texture2D" uid="uid://dx0guj1djndlg" path="res://Assets/Art/Particles/star1.png" id="2_liwgg"]
+[ext_resource type="Texture2D" uid="uid://dtymsy8cw0j2t" path="res://Assets/Art/Background/blue.png" id="2_u4no6"]
 [ext_resource type="Texture2D" uid="uid://dfog8fr6bcsdl" path="res://Assets/Art/Particles/star2.png" id="3_u4no6"]
 
 [node name="SpaceParallax" type="ParallaxBackground"]
@@ -23,7 +23,7 @@ offset_right = 1920.0
 offset_bottom = 1080.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_qbw84")
+texture = ExtResource("2_u4no6")
 stretch_mode = 1
 
 [node name="FarStarLayer" type="ParallaxLayer" parent="."]

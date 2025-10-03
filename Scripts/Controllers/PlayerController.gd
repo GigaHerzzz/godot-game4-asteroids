@@ -16,6 +16,7 @@ enum shooting_mode {Single, Dobule, Triple}
 @export var rotation_acc: int = 150
 
 @export var Bullet : PackedScene
+@export var effect_explosion : PackedScene
 
 @export var can_move := true
 
@@ -149,6 +150,15 @@ func reset_position():
 
 
 func effect_explode():
+	#Effect part
+	if(effect_explosion != null):
+		var effect :ExplosionEffect = effect_explosion.instantiate()
+		effect.position = Vector2.ZERO
+		effect.rotation = rotation
+		effect.start_particles()
+		add_child(effect)
+	
+	#Tween part
 	$Sprite2D.visible = false
 	$ShipParts.visible = true
 	

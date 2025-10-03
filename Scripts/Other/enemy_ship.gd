@@ -10,6 +10,7 @@ class_name EnemyShip
 @export var player:PlayerController
 
 @export var projectile: PackedScene = preload("res://Scenes/entities/enemy_projectile.tscn")
+@export var effect_explosion: PackedScene
 
 func _ready() -> void:
 	#move_vector = Vector2(randf_range(-1,1), randf_range(-1,1))
@@ -34,6 +35,15 @@ func shoot():
 	proj.transform = $EnemyCursor.global_transform
 
 func effect_explode():
+	#Particle part
+	if(effect_explosion != null):
+		var effect :ExplosionEffect = effect_explosion.instantiate()
+		effect.position = Vector2.ZERO
+		effect.rotation = rotation
+		effect.start_particles()
+		add_child(effect)
+	
+	#Tween part
 	$Sprite2D.visible = false
 	$ExplosionParts.visible = true
 

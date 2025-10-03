@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://cv61gse5n84l0"]
+[gd_scene load_steps=34 format=3 uid="uid://cv61gse5n84l0"]
 
 [ext_resource type="Script" uid="uid://dtpa601swsn3h" path="res://Scripts/Controllers/GameController.gd" id="1_u7gwu"]
 [ext_resource type="Theme" uid="uid://b5pgyyy6mq1f" path="res://Theme/game_theme.tres" id="1_yw6yy"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://dx7jk3v0tuqmg" path="res://Scripts/Spawner/power_up_spawner.gd" id="7_af5am"]
 [ext_resource type="Script" uid="uid://dchfmt45die7c" path="res://Scripts/Spawner/asteroid_spawner.gd" id="7_ed4u3"]
 [ext_resource type="PackedScene" uid="uid://be1r28la78nfc" path="res://Scenes/Components/health_component.tscn" id="7_nbpmo"]
+[ext_resource type="PackedScene" uid="uid://j2becpejt8xr" path="res://Scenes/Effects/effect_ship_explosion.tscn" id="7_y34kh"]
 [ext_resource type="PackedScene" uid="uid://ckpdi6jwtuxe" path="res://Scenes/Components/grab_component.tscn" id="8_qd7mf"]
 [ext_resource type="Script" uid="uid://dvt6ntdqb0nlt" path="res://Scripts/Spawner/enemy_spawner.gd" id="8_tf7tj"]
 [ext_resource type="Script" uid="uid://cd1hbjn6hit5g" path="res://Scripts/Effect/Trail.gd" id="11_o1s6i"]
@@ -463,6 +464,7 @@ motion_mode = 1
 script = ExtResource("2_o1o31")
 respawn_position = Vector2(980, 517)
 Bullet = ExtResource("4_wb67d")
+effect_explosion = ExtResource("7_y34kh")
 
 [node name="TrailPoint" type="Node2D" parent="Player"]
 position = Vector2(0, -35)

@@ -13,7 +13,7 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 [node name="EffectExplosion" type="Node2D"]
 script = ExtResource("1_sbb65")
 
-[node name="ParticleAsteroidShatter" type="CPUParticles2D" parent="."]
+[node name="ParticleEffect" type="CPUParticles2D" parent="."]
 emitting = false
 amount = 3
 texture = ExtResource("1_ba6wy")
@@ -30,4 +30,4 @@ color = Color(0.788235, 0.266667, 0.0823529, 1)
 color_ramp = SubResource("Gradient_ap4d4")
 anim_speed_max = 110.52
 
-[connection signal="finished" from="ParticleAsteroidShatter" to="." method="_on_particle_asteroid_shatter_finished"]
+[connection signal="finished" from="ParticleEffect" to="." method="_on_particle_asteroid_shatter_finished"]

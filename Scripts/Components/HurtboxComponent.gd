@@ -2,6 +2,7 @@ extends Area2D
 class_name HurtboxComponent
 
 @export var healthComponent: HealthComponent
+@export var hitMarkerCommponent: HitMarkerComponent
 
 func _ready() -> void:
 	if healthComponent == null:
@@ -12,6 +13,8 @@ func toggle_disabled(is_disabled: bool):
 
 func _on_area_entered(area:Area2D) -> void:
 	if area is HitboxComponent:
+		if hitMarkerCommponent != null:
+			hitMarkerCommponent.show_marker()
 		if healthComponent != null:
 			healthComponent.remove_health(area.damage)
 		else:

@@ -4,13 +4,13 @@
 [ext_resource type="Theme" uid="uid://e6s1gi814xp0" path="res://Theme/menu_theme.tres" id="1_l44du"]
 [ext_resource type="Texture2D" uid="uid://dx0guj1djndlg" path="res://Assets/Art/Particles/star1.png" id="2_2ddvu"]
 [ext_resource type="Texture2D" uid="uid://p08750ia871p" path="res://Assets/Art/Powerups/powerup-shield.png" id="3_6no0a"]
-[ext_resource type="Texture2D" uid="uid://dcuje77114py0" path="res://Assets/Art/Entities/meteorGrey_big1.png" id="3_gl3i6"]
 [ext_resource type="Texture2D" uid="uid://dfaiuhghmbd5d" path="res://Assets/Art/Entities/enemyShip.png" id="4_2ddvu"]
 [ext_resource type="Texture2D" uid="uid://bqs31pebddhvi" path="res://Assets/Art/Background/darkPurple.png" id="4_8y38f"]
 [ext_resource type="Texture2D" uid="uid://61pqvbv302w" path="res://Assets/Art/Powerups/powerup-2shot.png" id="4_ms8yy"]
 [ext_resource type="PackedScene" uid="uid://c4vvf12f4c6ig" path="res://Scenes/Effects/space_parallax.tscn" id="4_nr18t"]
 [ext_resource type="Texture2D" uid="uid://dva6kj3jbemew" path="res://Assets/Art/Powerups/powerup-3shot.png" id="5_gl3i6"]
 [ext_resource type="Texture2D" uid="uid://jxtru240iwm" path="res://Assets/Art/Powerups/powerup-life.png" id="6_2ddvu"]
+[ext_resource type="Texture2D" uid="uid://dcg0ro7eohi7y" path="res://Assets/Art/Entities/Asteroids/meteorBrown_big1.png" id="7_nr18t"]
 
 [sub_resource type="Animation" id="Animation_cgklw"]
 length = 0.001
@@ -290,8 +290,9 @@ alignment = 1
 
 [node name="lGameName" type="Label" parent="CanvasLayer/marginContainerMenu/MainMenuContainer/container/VBoxContainer"]
 layout_mode = 2
+theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 100
-text = "Asteroid Survivor"
+text = "Lone Survivor"
 
 [node name="Control" type="Control" parent="CanvasLayer/marginContainerMenu/MainMenuContainer/container/VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
@@ -386,6 +387,7 @@ text = "Quit"
 
 [node name="lMadeBy" type="Label" parent="CanvasLayer/marginContainerMenu/MainMenuContainer"]
 layout_mode = 2
+theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 30
 text = "Made by GigaHerzz"
 horizontal_alignment = 1
@@ -404,6 +406,7 @@ alignment = 1
 
 [node name="lOptions" type="Label" parent="CanvasLayer/marginContainerMenu/containerHowTo/VBoxContainer"]
 layout_mode = 2
+theme_override_constants/outline_size = 10
 text = "How To Play"
 horizontal_alignment = 1
 
@@ -415,6 +418,7 @@ horizontal_alignment = 1
 
 [node name="Label2" type="Label" parent="CanvasLayer/marginContainerMenu/containerHowTo/VBoxContainer"]
 layout_mode = 2
+theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 30
 text = "use \"W,a,d\" to control your ship and
 use \"space\" to shoot the asteroids and alien ships"
@@ -429,7 +433,7 @@ custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
-texture = ExtResource("3_gl3i6")
+texture = ExtResource("7_nr18t")
 expand_mode = 1
 stretch_mode = 4
 
@@ -444,6 +448,7 @@ stretch_mode = 4
 
 [node name="Label3" type="Label" parent="CanvasLayer/marginContainerMenu/containerHowTo/VBoxContainer"]
 layout_mode = 2
+theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 30
 text = "There will also be powerups that appear to help you out,
  pick them up to get an edge."
@@ -505,6 +510,7 @@ theme_override_constants/separation = 20
 
 [node name="lOptions" type="Label" parent="CanvasLayer/marginContainerMenu/containerOptions/VBoxContainer"]
 layout_mode = 2
+theme_override_constants/outline_size = 10
 text = "Options"
 horizontal_alignment = 1
 
@@ -514,11 +520,13 @@ alignment = 2
 
 [node name="Label" type="Label" parent="CanvasLayer/marginContainerMenu/containerOptions/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+theme_override_constants/outline_size = 10
 text = "Music Volume"
 
 [node name="MusicVal" type="Label" parent="CanvasLayer/marginContainerMenu/containerOptions/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
+theme_override_constants/outline_size = 10
 text = "100"
 horizontal_alignment = 2
 
@@ -533,11 +541,13 @@ alignment = 2
 
 [node name="Label" type="Label" parent="CanvasLayer/marginContainerMenu/containerOptions/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
+theme_override_constants/outline_size = 10
 text = "SFX Volume"
 
 [node name="SfxVal" type="Label" parent="CanvasLayer/marginContainerMenu/containerOptions/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
+theme_override_constants/outline_size = 10
 text = "100"
 horizontal_alignment = 2
 
@@ -561,14 +571,51 @@ layout_mode = 2
 
 [node name="lSure" type="Label" parent="CanvasLayer/marginContainerMenu/containerQuit/VBoxContainer"]
 layout_mode = 2
+theme_override_constants/outline_size = 10
 text = "Are you sure you want to quit?"
 
-[node name="bYes" type="Button" parent="CanvasLayer/marginContainerMenu/containerQuit/VBoxContainer"]
+[node name="Control" type="Control" parent="CanvasLayer/marginContainerMenu/containerQuit/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="bYes" type="Button" parent="CanvasLayer/marginContainerMenu/containerQuit/VBoxContainer/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -42.5
+offset_top = -22.5
+offset_right = 42.5
+offset_bottom = 22.5
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(42.5, 22.5)
 text = "Yes"
 
-[node name="bNo" type="Button" parent="CanvasLayer/marginContainerMenu/containerQuit/VBoxContainer"]
+[node name="Control2" type="Control" parent="CanvasLayer/marginContainerMenu/containerQuit/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="bNo" type="Button" parent="CanvasLayer/marginContainerMenu/containerQuit/VBoxContainer/Control2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -22.5
+offset_right = 30.0
+offset_bottom = 22.5
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(30, 22.5)
 text = "No"
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
@@ -602,6 +649,6 @@ autoplay = "start_anim"
 [connection signal="value_changed" from="CanvasLayer/marginContainerMenu/containerOptions/VBoxContainer/HBoxContainer/MusicSlider" to="." method="_on_music_slider_value_changed"]
 [connection signal="value_changed" from="CanvasLayer/marginContainerMenu/containerOptions/VBoxContainer/HBoxContainer2/SfxSlider" to="." method="_on_sfx_slider_value_changed"]
 [connection signal="button_up" from="CanvasLayer/marginContainerMenu/containerOptions/VBoxContainer/bBack" to="." method="_on_b_back_button_up"]
-[connection signal="button_up" from="CanvasLayer/marginContainerMenu/containerQuit/VBoxContainer/bYes" to="." method="_on_b_yes_button_up"]
-[connection signal="button_up" from="CanvasLayer/marginContainerMenu/containerQuit/VBoxContainer/bNo" to="." method="_on_b_no_button_up"]
+[connection signal="button_up" from="CanvasLayer/marginContainerMenu/containerQuit/VBoxContainer/Control/bYes" to="." method="_on_b_yes_button_up"]
+[connection signal="button_up" from="CanvasLayer/marginContainerMenu/containerQuit/VBoxContainer/Control2/bNo" to="." method="_on_b_no_button_up"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
